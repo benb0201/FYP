@@ -1,27 +1,48 @@
-package com.example.travelpal.user;
+package com.example.travelpal.client;
 
+import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.time.Period;
 
-public class User {
+@Entity
+@Table
+public class Client {
+    @Id
+    @SequenceGenerator(
+            name = "client_sequence",
+            sequenceName = "client_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "client_sequence"
+    )
     private Long id;
     private String name;
     private String email;
     private LocalDate dob;
+    @Transient
     private Integer age;
 
-    public User() {
+    public Client() {
     }
 
-    public User(Long id,
-                String name,
-                String email,
-                LocalDate dob,
-                Integer age) {
+    public Client( Long id,
+                  String name,
+                  String email,
+                  LocalDate dob ) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.dob = dob;
-        this.age = age;
+    }
+
+    public Client(String name,
+                  String email,
+                  LocalDate dob ) {
+        this.name = name;
+        this.email = email;
+        this.dob = dob;
     }
 
     public Long getId() {
@@ -57,16 +78,16 @@ public class User {
     }
 
     public Integer getAge() {
-        return age;
+        return this.age = Period.between(dob, LocalDate.now()).getYears();
     }
 
-    public void setAge(Integer age) {
-        this.age = age;
-    }
+//    public void setAge(Integer age) {
+//        this.age = age;
+//    }
 
     @Override
     public String toString() {
-        return "User{" +
+        return "Client{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +

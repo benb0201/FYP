@@ -41,13 +41,9 @@ public class ClientService {
 //    @Transactional
     public void updateClient(Client client, Long clientId) {
         Optional<Client> clientOptional = clientRepository.findById(clientId);
-        if (!clientOptional.isPresent()) {
+        if (clientOptional.isEmpty()) {
             throw new EntityNotFoundException("Client with ID " + clientId + " not found");
         }
-
-        // If email exists outside of this client
-//        if(){
-
 
         // Get the existing client from the Optional
         Client existingClient = clientOptional.get();

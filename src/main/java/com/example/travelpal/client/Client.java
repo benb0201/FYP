@@ -5,29 +5,29 @@ import java.time.LocalDate;
 import java.time.Period;
 
 @Entity
-@Table
+@Table(name = "clients")
 public class Client {
     @Id
-    @SequenceGenerator(
-            name = "client_sequence",
-            sequenceName = "client_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "client_sequence"
-    )
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "client_sequence")
+    @SequenceGenerator(name = "client_sequence", sequenceName = "client_sequence", allocationSize = 1)
     private Long id;
+
+    @Column(nullable = false)
     private String name;
+
+    @Column(nullable = false, unique = true)
     private String email;
+
+    @Column(name = "date_of_birth")
     private LocalDate dob;
+
     @Transient
     private Integer age;
 
     public Client() {
     }
 
-    public Client( Long id,
+    public Client(Long id,
                   String name,
                   String email,
                   LocalDate dob ) {
@@ -81,9 +81,9 @@ public class Client {
         return this.age = Period.between(dob, LocalDate.now()).getYears();
     }
 
-//    public void setAge(Integer age) {
-//        this.age = age;
-//    }
+    public void setAge(Integer age) {
+        this.age = age;
+    }
 
     @Override
     public String toString() {

@@ -40,7 +40,7 @@ public class DestinationService {
             throw new EntityNotFoundException("Destination with ID " + destinationId + " not found");
         }
 
-        // Get the existing client from the Optional
+        // Get the existing destination from the Optional
         Destination existingDestination = destinationOptional.get();
 
         // Update the attributes of the existing destination with the values from the new destination
@@ -48,7 +48,7 @@ public class DestinationService {
         existingDestination.setLocation(destination.getLocation());
         existingDestination.setDescription(destination.getDescription());
 
-        // Save the updated client back to the repository
+        // Save the updated destination back to the repository
         destinationRepository.save(existingDestination);
     }
 }

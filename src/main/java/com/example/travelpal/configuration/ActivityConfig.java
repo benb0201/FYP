@@ -1,5 +1,6 @@
 package com.example.travelpal.configuration;
 
+import com.example.travelpal.DestinationList;
 import com.example.travelpal.repository.ActivityRepository;
 import com.example.travelpal.models.Destination;
 import com.example.travelpal.models.Activity;
@@ -15,21 +16,9 @@ public class ActivityConfig {
 
     @Bean
     public CommandLineRunner activityDataLoader(ActivityRepository activityRepository, DestinationRepository destinationRepository) {
-
-        Destination destination1 = new Destination(
-                "Paris",
-                "Paris, France",
-                "The City of Love"
-        );
-
-        Destination destination2 = new Destination(
-                "New York City",
-                "New York, USA",
-                "The Big Apple"
-        );
-
         // Save the destinations to the database
-        destinationRepository.saveAll(List.of(destination1,destination2));
+        DestinationList destinationList = new DestinationList();
+        destinationRepository.saveAll(destinationList.getDestinations());
 
         return args -> {
             Activity activity1 = new Activity(
@@ -38,7 +27,7 @@ public class ActivityConfig {
                     "Mountain Trails",
                     "Outdoor",
                     20.0,
-                    List.of(destination2)
+                    List.of(destinationList.getAmsterdam())
             );
 
             Activity activity2 = new Activity(
@@ -47,7 +36,7 @@ public class ActivityConfig {
                     "Local Museum",
                     "Cultural",
                     10.0,
-                    List.of(destination1)
+                    List.of(destinationList.getLondon())
             );
 
             // Save the activities to the database

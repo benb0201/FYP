@@ -5,7 +5,6 @@ import com.example.travelpal.repository.ItineraryRepository;
 import com.example.travelpal.models.Client;
 import com.example.travelpal.models.Itinerary;
 import com.example.travelpal.repository.ClientRepository;
-import com.example.travelpal.models.Destination;
 import com.example.travelpal.repository.DestinationRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;

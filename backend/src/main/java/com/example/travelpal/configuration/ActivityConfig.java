@@ -2,7 +2,6 @@ package com.example.travelpal.configuration;
 
 import com.example.travelpal.DestinationList;
 import com.example.travelpal.repository.ActivityRepository;
-import com.example.travelpal.models.Destination;
 import com.example.travelpal.models.Activity;
 import com.example.travelpal.repository.DestinationRepository;
 import org.springframework.boot.CommandLineRunner;

@@ -1,7 +1,5 @@
 package com.example.travelpal.models;
 
-import com.example.travelpal.models.Client;
-import com.example.travelpal.models.Destination;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;

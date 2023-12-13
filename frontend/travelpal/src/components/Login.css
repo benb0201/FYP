@@ -57,10 +57,6 @@ body {
     padding-left: 60px;
 }
 
-/* .input img{
-    margin: 0px 30px;
-} */
-
 .input input{
     background: transparent;
     height: 50px;
@@ -102,8 +98,3 @@ body {
     font-weight: 700;
     cursor: pointer;
 }
-/* 
-.gray{
-    background: lightgray;
-    color: #676767;
-} */

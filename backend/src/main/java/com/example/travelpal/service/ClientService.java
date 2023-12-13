@@ -1,9 +1,17 @@
 package com.example.travelpal.service;
 
+import com.example.travelpal.dto.LoginDTO;
+import com.example.travelpal.dto.RegisterDTO;
 import com.example.travelpal.models.Client;
 import com.example.travelpal.repository.ClientRepository;
+import com.example.travelpal.response.LoginResponse;
+import com.example.travelpal.response.RegisterResponse;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,22 +23,65 @@ public class ClientService {
     private final ClientRepository clientRepository;
 
     @Autowired
-    public ClientService(ClientRepository clientRepository) {
+    private PasswordEncoder encoder;
+
+    @Autowired
+    public ClientService(ClientRepository clientRepository, PasswordEncoder encoder) {
         this.clientRepository = clientRepository;
+        this.encoder = encoder;
     }
 
     public List<Client> getClients(){
         return clientRepository.findAll();
     }
 
-    public void addNewClient(Client client) {
-        Optional<Client> clientOptional = clientRepository.findClientByEmail(client.getEmail());
-        if(clientOptional.isPresent()){
-            throw new IllegalStateException("Client email taken");
+    // Modified addNewClient method to directly return a RegisterResponse
+    public RegisterResponse registerClient(RegisterDTO registerDTO) {
+        Optional<Client> clientOptional = clientRepository.findClientByEmail(registerDTO.getEmail());
+
+        if (clientOptional.isPresent()) {
+            // If the email is already taken, return a RegisterResponse indicating failure
+            return new RegisterResponse("Email is already registered", false);
         }
-        clientRepository.save(client);
-        System.out.println(client);
+
+        // Encode the password before saving to the database
+        String encodedPassword = encoder.encode(registerDTO.getPassword());
+
+        // Create a new Client object with the provided details
+        Client client1 = new Client(
+                registerDTO.getName(),
+                registerDTO.getEmail(),
+                encodedPassword,
+                registerDTO.getDob()
+        );
+
+        // Save the new client to the database
+        clientRepository.save(client1);
+        System.out.println(client1);
+
+        // Return a RegisterResponse indicating successful registration
+        return new RegisterResponse("Registration Successful", true);
     }
+
+    public LoginResponse loginClient(LoginDTO loginDTO) {
+        Optional<Client> clientOptional = clientRepository.findClientByEmail(loginDTO.getEmail());
+
+        if (clientOptional.isEmpty()) {
+            // If no client with the given email exists, indicate email does not exist
+            return new LoginResponse("Email does not exist", false);
+        }
+
+        Client client = clientOptional.get();
+        String password = loginDTO.getPassword(); // Get the entered password from the loginDTO
+        String encodedPassword = client.getPassword(); // Get the encoded password from the retrieved client
+
+        // Check if the entered password matches the encoded password
+        boolean isPwdRight = encoder.matches(password, encodedPassword);
+
+        // Return a LoginResponse based on the result of finding the client by email and password
+        return new LoginResponse(isPwdRight ? "Login Success" : "Password does not match", isPwdRight);
+    }
+
 
     public void deleteClient(Long clientId) {
         boolean exists = clientRepository.existsById(clientId);

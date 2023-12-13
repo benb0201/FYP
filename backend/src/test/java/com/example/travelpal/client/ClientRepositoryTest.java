@@ -32,6 +32,7 @@ class ClientRepositoryTest {
         Client client = new Client(
                 "Friend",
                 email,
+                "qwerty12",
                 LocalDate.of(2000, Month.MARCH, 16)
         );
 

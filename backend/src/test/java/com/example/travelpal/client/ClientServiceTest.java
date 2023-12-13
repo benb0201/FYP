@@ -1,7 +1,9 @@
 package com.example.travelpal.client;
 
+import com.example.travelpal.dto.RegisterDTO;
 import com.example.travelpal.models.Client;
 import com.example.travelpal.repository.ClientRepository;
+import com.example.travelpal.response.RegisterResponse;
 import com.example.travelpal.service.ClientService;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,6 +12,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
 import java.time.Month;
@@ -26,13 +30,12 @@ import static org.mockito.Mockito.*;
 class ClientServiceTest {
 
     @Mock private ClientRepository repository;
-//    private AutoCloseable autoCloseable;
+    private PasswordEncoder encoder = new BCryptPasswordEncoder(); // Manually create an instance
     private ClientService service;
 
     @BeforeEach
-    void setUp(){
-//        autoCloseable = MockitoAnnotations.openMocks(this);
-        service = new ClientService(repository);
+    void setUp() {
+        service = new ClientService(repository, encoder);
     }
 
 //    @AfterEach
@@ -50,49 +53,59 @@ class ClientServiceTest {
 
     @Test
     void canAddNewClient() {
-        //given
+        // given
         String email = "friend.org@gmail.com";
-        Client client = new Client(
+        RegisterDTO registerDTO = new RegisterDTO(
                 "Friend",
                 email,
+                "password1",
                 LocalDate.of(2000, Month.MARCH, 16)
         );
 
-        //when
-        service.addNewClient(client);
+        // when
+        RegisterResponse registerResponse = service.registerClient(registerDTO);
 
-        //then
-        ArgumentCaptor<Client> clientArgumentCaptor =
-                ArgumentCaptor.forClass(Client.class);
+        // then
+        assertThat(registerResponse.getStatus()).isTrue();
+        assertThat(registerResponse.getMessage()).isEqualTo("Registration Successful");
 
-        verify(repository)
-                .save(clientArgumentCaptor.capture());
+        ArgumentCaptor<Client> clientArgumentCaptor = ArgumentCaptor.forClass(Client.class);
+
+        verify(repository).save(clientArgumentCaptor.capture());
 
         Client capturedClient = clientArgumentCaptor.getValue();
 
-        assertThat(capturedClient).isEqualTo(client);
+        assertThat(capturedClient.getName()).isEqualTo(registerDTO.getName());
+        assertThat(capturedClient.getEmail()).isEqualTo(registerDTO.getEmail());
+        // Adjust additional assertions based on your actual Client and RegisterDTO structures
     }
 
+
     @Test
-    void willThrowWhenEmailIsTaken(){
-        //given
+    void willReturnFailureResponseWhenEmailIsTaken() {
+        // given
         String email = "friend.org@gmail.com";
-        Client client = new Client(
+        RegisterDTO registerDTO = new RegisterDTO(
                 "Friend",
                 email,
+                "password1",
                 LocalDate.of(2000, Month.MARCH, 16)
         );
-        given(repository.findClientByEmail(client.getEmail())).
-                willReturn(java.util.Optional.of(client));
+        given(repository.findClientByEmail(registerDTO.getEmail()))
+                .willReturn(Optional.of(new Client())); // You can create a dummy Client since the focus is on email existence check
 
-        //when
-        //then
-        assertThatThrownBy(() ->service.addNewClient(client))
-                .isInstanceOf(IllegalStateException.class)
-                .hasMessageContaining("Client email taken");
+        // when
+        RegisterResponse registerResponse = service.registerClient(registerDTO);
+
+        // then
+        assertThat(registerResponse.getStatus()).isFalse();
+        assertThat(registerResponse.getMessage()).isEqualTo("Email is already registered");
 
         verify(repository, never()).save(any());
     }
+
+
+
 
     @Test
     void canDeleteClient() {
@@ -124,24 +137,25 @@ class ClientServiceTest {
                 .hasMessageContaining("Client with id: " + clientId + " does not exist");
     }
 
-    @Test
-    void canUpdateClient() {
-        //given
-        String email = "friend.org@gmail.com";
-        Client client = new Client(
-                "Friend",
-                email,
-                LocalDate.of(2000, Month.MARCH, 16)
-        );
-        long clientId = 3L; // Assuming a client with this ID exists
-
-        //Mock Client existing
-        when(repository.existsById(clientId)).thenReturn(true);
-
-        // Mock the behavior of repository.ById
-        doNothing().when(repository).deleteById(clientId);
-
-    }
+//    @Test
+//    void canUpdateClient() {
+//        //given
+//        String email = "friend.org@gmail.com";
+//        Client client = new Client(
+//                "Friend",
+//                email,
+//                "password1",
+//                LocalDate.of(2000, Month.MARCH, 16)
+//        );
+//        long clientId = 3L; // Assuming a client with this ID exists
+//
+//        //Mock Client existing
+//        when(repository.existsById(clientId)).thenReturn(true);
+//
+//        // Mock the behavior of repository.ById
+//        doNothing().when(repository).deleteById(clientId);
+//
+//    }
 
     @Test
     void willThrowIfClientDoesNotExist() {
@@ -150,6 +164,7 @@ class ClientServiceTest {
         Client client = new Client(
                 "Friend",
                 email,
+                "password1",
                 LocalDate.of(2000, Month.MARCH, 16)
         );
         long clientId = 3L; // Assuming a client with this ID does not exist

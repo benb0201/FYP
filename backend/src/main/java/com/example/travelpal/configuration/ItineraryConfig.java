@@ -22,8 +22,8 @@ public class ItineraryConfig extends DestinationConfig {
     CommandLineRunner commandLineRunner(ItineraryRepository itineraryRepository, ClientRepository clientRepository, DestinationRepository destinationRepository) {
         return args -> {
             // Create clients
-            Client client1 = clientRepository.save(new Client("Alice", "alice@example.com", LocalDate.of(1990, JULY, 15)));
-            Client client2 = clientRepository.save(new Client("Bob", "bob@example.com", LocalDate.of(1985, AUGUST, 25)));
+            Client client1 = clientRepository.save(new Client("Alice", "alice@example.com", "password1", LocalDate.of(1990, JULY, 15)));
+            Client client2 = clientRepository.save(new Client("Bob", "bob@example.com", "password2", LocalDate.of(1985, AUGUST, 25)));
 
             // Create destinations
             DestinationList destinationList = new DestinationList();

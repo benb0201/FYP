@@ -70,12 +70,14 @@ public class ClientConfig {
             Client angel = new Client(
                     "Angel",
                     "angel.a@tmail.com",
+                    "password1",
                     LocalDate.of(2003, OCTOBER, 2)
             );
 
             Client ben = new Client(
                     "Ben",
-                    "ben.b@tmail.com",
+                    "ben.o@tmail.com",
+                    "password2",
                     LocalDate.of(2002, JANUARY, 15)
             );
 

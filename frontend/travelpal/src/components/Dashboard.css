@@ -1,0 +1,31 @@
+:root{
+  --mainColour:#eaeaea;
+  --secondaryColour:#fff;
+  --borderColour:#c1c1c1;
+  --mainText:black;
+  --secondaryText:#4b5156;
+
+  --mainBlue: #2a5d84; /* A blue tone that might resemble the sky in the image */
+  --lightBlue: #b2c6d1; /* A lighter blue for a softer look that complements the main blue */
+  --earthyTone: #745840; /* An earthy tone that could match the mountains */
+  --cloudWhite: #f0f4f7; /* A soft white for background elements, akin to cloud colors */
+}
+
+  h1,h2,h3,h4,h5,h6,strong{
+    color: var(--mainText);
+    font-weight: 800;
+  }
+
+  p,li,span,label,input,textarea{
+    color: var(--secondaryText);
+  }
+
+  ul{
+    list-style: none;
+  }
+
+  .background{
+    display: flex;
+    padding-bottom: 20px;
+  }
+  

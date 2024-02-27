@@ -12,7 +12,10 @@
   }
 
 .form {
-    background-color: var(--mainBlue);
+    display: flex;
+    flex-direction: column;
+    background-color: black;
+    opacity: 0.85;
     padding: 1rem;
     width: 20rem;
 }
@@ -20,8 +23,9 @@
 .form label {
     display: block;
     margin-bottom: 0.05rem;
-    color: #eadbfb;
+    color: aliceblue;
     font-weight: bold;
+    margin-bottom: 5px;
 }
 
 .form input,
@@ -30,8 +34,38 @@
     width: 100%;
     font: inherit;
     padding: 0.5rem;
+    margin-bottom: 15px;
     border-radius: 6px;
     border: none;
-    background-color: #c4a9e4;
+    background-color: rgb(214, 234, 252);
     color: #28262c;
+}
+
+.actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+}
+
+.actions button {
+    cursor: pointer;
+    font: inherit;
+    padding: 0.5rem 1.5rem;
+    margin-top: 1rem;
+    border: none;
+    border-radius: 4px;
+    background-color: var(--mainBlue);
+    color: aliceblue;
+}
+
+.actions button:hover{
+    background-color: #1a3a53;
+}
+
+.actions button[type='button'] {
+    background-color: transparent;
+}
+
+.actions button[type='button']:hover{
+    color: var(--mainBlue);
 }

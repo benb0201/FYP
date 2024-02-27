@@ -24,7 +24,7 @@
     /* Layout properties */
     display: flex;
     flex-direction: column;
-    max-width: 1200px; /* Consider using max-width for better responsiveness */
+    width: 1200px; /* Consider using max-width for better responsiveness */
     height: 65vh; /* You might want to consider using min-height or a combination of vh for responsiveness */
     margin: 0 auto 2vh; /* Bottom margin based on viewport height */
     padding-top: 2vh;/* Top padding based on viewport height */
@@ -51,9 +51,21 @@
     gap: 70px; /* Space between itinerary items */
     padding: 10px;
     align-items: center; /* Align items vertically */
+    justify-content: center;
     width: 100%;
     height: 75%; /*Relative height to parent */
-    background-color: var(--mainColour);
+    background-color: var(--lightBlue);
+    border: 1px solid #ddd;
+  }
+   .itinerary-slider2 { /*For when there is more than 3 itineraries */
+    display: flex;
+    overflow-x: auto; /* Enable horizontal scrolling */
+    gap: 70px; /* Space between itinerary items */
+    padding: 10px;
+    align-items: center; /* Align items vertically */
+    width: 100%;
+    height: 75%; /*Relative height to parent */
+    background-color: var(--lightBlue);
     border: 1px solid #ddd;
   }
 

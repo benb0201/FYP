@@ -7,8 +7,8 @@ import planeImg from "../assets/images/plane_window.jpg";
 const Dashboard = ({ handleNavbarLinks }) => {
   useEffect(() => {
     // This code will run when the component mounts
-    console.log(handleNavbarLinks());
-  }, [handleNavbarLinks]); // Include handleNavbarLinks as a dependency);
+    // console.log(handleNavbarLinks());
+  }); //, [handleNavbarLinks]); // Include handleNavbarLinks as a dependency
 
   const [itineraries, setItineraries] = useState([]);
 

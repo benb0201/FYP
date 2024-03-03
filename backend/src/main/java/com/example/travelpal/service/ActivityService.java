@@ -5,6 +5,7 @@ import com.example.travelpal.repository.ActivityRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,36 +19,36 @@ public class ActivityService {
         this.activityRepository = activityRepository;
     }
 
-    public List<Activity> getActivities(){
+    public List<Activity> getActivities() {
         return activityRepository.findAll();
     }
 
-    public void addNewActivity(Activity activity){
+    public void addNewActivity(Activity activity) {
         activityRepository.save(activity);
     }
 
-    public void deleteActivity(Long activityId){
+    public void deleteActivity(Long activityId) {
+        boolean exists = activityRepository.existsById(activityId);
+        if (!exists) {
+            throw new EntityNotFoundException("Activity with ID " + activityId + " does not exist.");
+        }
         activityRepository.deleteById(activityId);
     }
 
-    public void updateActivity(Activity activity, Long activityId){
-        Optional<Activity> activityOptional = activityRepository.findById(activityId);
-        if (activityOptional.isEmpty()) {
-            throw new EntityNotFoundException("Itinerary with ID " + activityId + " not found");
-        }
-
-        // Get the existing activity from the Optional
-        Activity existingActivity = activityOptional.get();
+    @Transactional
+    public void updateActivity(Activity activity, Long activityId) {
+        Activity existingActivity = activityRepository.findById(activityId)
+                .orElseThrow(() -> new EntityNotFoundException("Activity with ID " + activityId + " not found"));
 
         // Update the attributes of the existing activity with the values from the new activity
         existingActivity.setName(activity.getName());
         existingActivity.setDescription(activity.getDescription());
         existingActivity.setLocation(activity.getLocation());
-        existingActivity.setType(activity.getType());
         existingActivity.setCost(activity.getCost());
-        existingActivity.setDestinations(activity.getDestinations());
 
+        // No need to explicitly save the object due to the @Transactional annotation
+    //     The changes will be automatically persisted at the end of the transaction
         // Save the updated activity back to the repository
-        activityRepository.save(existingActivity);
+//        activityRepository.save(existingActivity);
     }
 }

@@ -1,8 +1,7 @@
 package com.example.travelpal.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-
-import java.util.List;
 
 @Entity
 @Table(name = "activities")
@@ -17,40 +16,45 @@ public class Activity {
 
     private String description;
 
-    @Column(nullable = false)
     private String location;
 
-    @Column(nullable = false)
-    private String type;
-
-    @Column(nullable = false)
     private double cost;
 
-    @ManyToMany //(mappedBy = "destinations")
-    private List<Destination> destinations;
+//    @ManyToOne(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "itinerary_id")
+//    @JsonBackReference
+//    private Itinerary itinerary; // The reference to the Itinerary
 
     public Activity() {
     }
 
-    public Activity(Long id, String name, String description, String location, String type, double cost, List<Destination> destinations) {
+    // Constructor without itinerary
+    public Activity(String name, String description, String location, double cost) {
+        this.name = name;
+        this.description = description;
+        this.location = location;
+        this.cost = cost;
+        // itinerary is not set and can be set later
+    }
+
+    // Constructor with itinerary
+    public Activity(String name, String description, String location, double cost, Itinerary itinerary) {
+        this.name = name;
+        this.description = description;
+        this.location = location;
+        this.cost = cost;
+    }
+
+    // Optionally, keep the constructor with the ID for internal use or specific cases
+    public Activity(Long id, String name, String description, String location, double cost, Itinerary itinerary) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.location = location;
-        this.type = type;
         this.cost = cost;
-        this.destinations = destinations;
     }
 
-    public Activity(String name, String description, String location, String type, double cost, List<Destination> destinations) {
-        this.name = name;
-        this.description = description;
-        this.location = location;
-        this.type = type;
-        this.cost = cost;
-        this.destinations = destinations;
-    }
-
+    // Getters and setters
     public Long getId() {
         return id;
     }
@@ -83,28 +87,12 @@ public class Activity {
         this.location = location;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
     public double getCost() {
         return cost;
     }
 
     public void setCost(double cost) {
         this.cost = cost;
-    }
-
-    public List<Destination> getDestinations() {
-        return destinations;
-    }
-
-    public void setDestinations(List<Destination> destinations) {
-        this.destinations = destinations;
     }
 
     @Override
@@ -114,9 +102,7 @@ public class Activity {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", location='" + location + '\'' +
-                ", type='" + type + '\'' +
                 ", cost=" + cost +
-                ", destinations=" + destinations +
                 '}';
     }
 }

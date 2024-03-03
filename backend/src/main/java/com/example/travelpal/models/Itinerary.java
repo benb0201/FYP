@@ -1,8 +1,9 @@
 package com.example.travelpal.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -24,51 +25,82 @@ public class Itinerary {
     @Column(name = "end_date")
     private LocalDate endDate;
 
-    @ManyToMany
-    @JoinTable(
-            name = "itinerary_destinations",
-            joinColumns = @JoinColumn(name = "itinerary_id"),
-            inverseJoinColumns = @JoinColumn(name = "destination_id")
-    )
-    private List<Destination> destinations;
+    @Column(name = "location")
+    private String location;
+
+    @Column(name = "notes")
+    private String notes;
 
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Client client;
 
+    // Adding a list of activities to the itinerary
+//    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+//    @JoinTable(
+//            name = "itinerary_activities",
+//            joinColumns = @JoinColumn(name = "itinerary_id"),
+//            inverseJoinColumns = @JoinColumn(name = "activity_id")
+//    )
+//    @OneToMany(mappedBy = "itinerary", cascade = CascadeType.ALL, orphanRemoval = true)
+//    @JsonManagedReference
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Activity> activities;
+
     public Itinerary() {
     }
 
-    public Itinerary(Long id,
-                     String name,
-                     String description,
-                     LocalDate startDate,
-                     LocalDate endDate,
-                     List<Destination> destinations,
-                     Client client) {
+    //Constructors without Activities as parameters
+    public Itinerary(Long id, String name, String description, LocalDate startDate, LocalDate endDate, String location, String notes, Client client) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.destinations = destinations;
+        this.location = location;
+        this.notes = notes;
         this.client = client;
+        // Initialize the list to avoid null pointer exceptions when adding activities later
+        this.activities = new ArrayList<>();
     }
 
-    public Itinerary(String name,
-                     String description,
-                     LocalDate startDate,
-                     LocalDate endDate,
-                     List<Destination> destinations,
-                     Client client) {
+    public Itinerary(String name, String description, LocalDate startDate, LocalDate endDate, String location, String notes, Client client) {
         this.name = name;
         this.description = description;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.destinations = destinations;
+        this.location = location;
+        this.notes = notes;
         this.client = client;
+        // Initialize the list to avoid null pointer exceptions when adding activities later
+        this.activities = new ArrayList<>();
     }
 
+    // Include activities in constructors if necessary
+    public Itinerary(Long id, String name, String description, LocalDate startDate, LocalDate endDate, String location, String notes, Client client, List<Activity> activities) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.location = location;
+        this.notes = notes;
+        this.client = client;
+        this.activities = activities;
+    }
+
+    public Itinerary(String name, String description, LocalDate startDate, LocalDate endDate, String location, String notes, Client client, List<Activity> activities) {
+        this.name = name;
+        this.description = description;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.location = location;
+        this.notes = notes;
+        this.client = client;
+        this.activities = activities;
+    }
+
+    // Getters and setters
     public Long getId() {
         return id;
     }
@@ -109,12 +141,20 @@ public class Itinerary {
         this.endDate = endDate;
     }
 
-    public List<Destination> getDestinations() {
-        return destinations;
+    public String getLocation() {
+        return location;
     }
 
-    public void setDestinations(List<Destination> destinations) {
-        this.destinations = destinations;
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
 
     public Client getClient() {
@@ -125,6 +165,14 @@ public class Itinerary {
         this.client = client;
     }
 
+    public List<Activity> getActivities() {
+        return activities;
+    }
+
+    public void setActivities(List<Activity> activities) {
+        this.activities = activities;
+    }
+
     @Override
     public String toString() {
         return "Itinerary{" +
@@ -133,8 +181,10 @@ public class Itinerary {
                 ", description='" + description + '\'' +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
-                ", destinations=" + destinations +
+                ", location='" + location + '\'' +
+                ", notes='" + notes + '\'' +
                 ", client=" + client +
+                ", activities=" + activities +
                 '}';
     }
 }

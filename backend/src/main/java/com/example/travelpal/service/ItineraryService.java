@@ -1,10 +1,12 @@
 package com.example.travelpal.service;
 
+import com.example.travelpal.models.Activity;
 import com.example.travelpal.models.Itinerary;
 import com.example.travelpal.repository.ItineraryRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -34,8 +36,8 @@ public class ItineraryService {
         }else itineraryRepository.deleteById(itineraryId);
     }
 
-    //    @Transactional
-    public void updateItinerary(Itinerary itinerary, Long itineraryId) {
+        @Transactional
+    public void updateItinerary(Itinerary updatedItinerary, Long itineraryId) {
         Optional<Itinerary> itineraryOptional = itineraryRepository.findById(itineraryId);
         if (itineraryOptional.isEmpty()) {
             throw new EntityNotFoundException("Itinerary with ID " + itineraryId + " not found");
@@ -45,14 +47,23 @@ public class ItineraryService {
         Itinerary existingItinerary = itineraryOptional.get();
 
         // Update the attributes of the existing itinerary with the values from the new itinerary
-        existingItinerary.setName(itinerary.getName());
-        existingItinerary.setDescription(itinerary.getDescription());
-        existingItinerary.setStartDate(itinerary.getStartDate());
-        existingItinerary.setEndDate(itinerary.getEndDate());
-        existingItinerary.setDestinations(itinerary.getDestinations());
-        existingItinerary.setClient(itinerary.getClient());
+        existingItinerary.setName(updatedItinerary.getName());
+        existingItinerary.setDescription(updatedItinerary.getDescription());
+        existingItinerary.setStartDate(updatedItinerary.getStartDate());
+        existingItinerary.setEndDate(updatedItinerary.getEndDate());
+        existingItinerary.setLocation(updatedItinerary.getLocation());
+        existingItinerary.setNotes(updatedItinerary.getNotes());
+        existingItinerary.setClient(updatedItinerary.getClient());
 
-        // Save the updated itinerary back to the repository
-        itineraryRepository.save(existingItinerary);
+        // Update the activities
+        existingItinerary.getActivities().clear(); // Clear the current list
+        for (Activity activity : updatedItinerary.getActivities()) {
+            existingItinerary.getActivities().add(activity);
+        }
+
+        // No need to explicitly save the object due to the @Transactional annotation
+//         The changes will be automatically persisted at the end of the transaction
+////         Save the updated itinerary back to the repository
+//        itineraryRepository.save(existingItinerary);
     }
 }

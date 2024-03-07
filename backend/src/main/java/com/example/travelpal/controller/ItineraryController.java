@@ -24,18 +24,21 @@ public class ItineraryController {
         return itineraryService.getItineraries();
     }
 
+    @GetMapping(path = "{itineraryId}")
+    public Itinerary getItineraryById(@PathVariable("itineraryId") Long itineraryId) { return itineraryService.getItineraryById(itineraryId); }
+
     @PostMapping
     public void registerItinerary(@RequestBody Itinerary itinerary){
         itineraryService.addNewItinerary(itinerary);
     }
 
-    @DeleteMapping(path = "{itineraryid}")
-    public void deleteItinerary(@PathVariable("itineraryid") Long itineraryId){
+    @DeleteMapping(path = "{itineraryId}")
+    public void deleteItinerary(@PathVariable("itineraryId") Long itineraryId){
         itineraryService.deleteItinerary(itineraryId);
     }
 
-    @PutMapping(path = "{itineraryid}")
-    public void updateItinerary (@PathVariable ("itineraryid") Long itineraryId, @RequestBody Itinerary itinerary){
+    @PutMapping(path = "{itineraryId}")
+    public void updateItinerary (@PathVariable ("itineraryId") Long itineraryId, @RequestBody Itinerary itinerary){
         itineraryService.updateItinerary(itinerary, itineraryId);
     }
 }

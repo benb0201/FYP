@@ -22,6 +22,11 @@ public class ItineraryService {
 
     public List<Itinerary> getItineraries(){ return itineraryRepository.findAll(); }
 
+    public Itinerary getItineraryById(Long itineraryId) {
+        return itineraryRepository.findById(itineraryId)
+                .orElseThrow(() -> new EntityNotFoundException("Itinerary with ID " + itineraryId + " not found"));
+    }
+
     public void addNewItinerary(Itinerary itinerary) {
         itinerary.calculateEstimatedCost(); // Calculate the estimated cost before saving
         itineraryRepository.save(itinerary);

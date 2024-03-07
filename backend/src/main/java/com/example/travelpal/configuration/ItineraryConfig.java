@@ -35,12 +35,13 @@ public class ItineraryConfig {
             clientRepository.saveAll(List.of(client1, client2));
 
             // Create and save itineraries
-            Itinerary itinerary1 = new Itinerary("Summer Vacation", "Exploring Europe", LocalDate.of(2023, JULY, 1), LocalDate.of(2023, JULY, 15),
-                    "Paris, France", "Don't forget camera!", client1, List.of(activity1, activity2));
+            Itinerary itinerary1 = new Itinerary("Summer Vacation", "Exploring Europe", LocalDate.of(2023, JULY, 1), LocalDate.of(2023, JULY, 5),
+                    "Paris, France", "Don't forget camera!", "Hotel in Paris (can be more specific/vague)", 200.00, client1, List.of(activity1, activity2));
 
             Itinerary itinerary2 = new Itinerary("City Break", "Quick getaway", LocalDate.of(2023, AUGUST, 10), LocalDate.of(2023, AUGUST, 15),
-                    "Amsterdam", "Reserve restaurant tickets at amsterdameats.com", client2, List.of(activity3, activity4));
-
+                    "Amsterdam", "Reserve restaurant tickets at amsterdameats.com", "TravelLodge", 150.00, client2, List.of(activity3, activity4));
+            itinerary1.calculateEstimatedCost();
+            itinerary2.calculateEstimatedCost();
             itineraryRepository.saveAll(List.of(itinerary1, itinerary2));
 
         };

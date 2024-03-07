@@ -20,11 +20,10 @@ public class ItineraryService {
         this.itineraryRepository = itineraryRepository;
     }
 
-    public List<Itinerary> getItineraries(){
-        return itineraryRepository.findAll();
-    }
+    public List<Itinerary> getItineraries(){ return itineraryRepository.findAll(); }
 
     public void addNewItinerary(Itinerary itinerary) {
+        itinerary.calculateEstimatedCost(); // Calculate the estimated cost before saving
         itineraryRepository.save(itinerary);
         System.out.println(itinerary);
     }
@@ -53,13 +52,13 @@ public class ItineraryService {
         existingItinerary.setEndDate(updatedItinerary.getEndDate());
         existingItinerary.setLocation(updatedItinerary.getLocation());
         existingItinerary.setNotes(updatedItinerary.getNotes());
-        existingItinerary.setClient(updatedItinerary.getClient());
+        existingItinerary.setAccommodation(updatedItinerary.getAccommodation());
+        existingItinerary.setAccommodationCost(updatedItinerary.getAccommodationCost());
 
         // Update the activities
         existingItinerary.getActivities().clear(); // Clear the current list
-        for (Activity activity : updatedItinerary.getActivities()) {
-            existingItinerary.getActivities().add(activity);
-        }
+        existingItinerary.getActivities().addAll(updatedItinerary.getActivities());
+        existingItinerary.calculateEstimatedCost(); // Recalculate the estimated cost with the updates
 
         // No need to explicitly save the object due to the @Transactional annotation
 //         The changes will be automatically persisted at the end of the transaction

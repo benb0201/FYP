@@ -31,19 +31,19 @@ public class Itinerary {
     @Column(name = "notes")
     private String notes;
 
+    @Column(name = "accommodation")
+    private String accommodation;
+
+    @Column(name = "accommodation_cost")
+    private double accommodationCost;
+
+    @Column(name = "estimated_cost")
+    private double estimatedCost;
+
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Client client;
 
-    // Adding a list of activities to the itinerary
-//    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
-//    @JoinTable(
-//            name = "itinerary_activities",
-//            joinColumns = @JoinColumn(name = "itinerary_id"),
-//            inverseJoinColumns = @JoinColumn(name = "activity_id")
-//    )
-//    @OneToMany(mappedBy = "itinerary", cascade = CascadeType.ALL, orphanRemoval = true)
-//    @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL)
     private List<Activity> activities;
 
@@ -64,20 +64,30 @@ public class Itinerary {
         this.activities = new ArrayList<>();
     }
 
-    public Itinerary(String name, String description, LocalDate startDate, LocalDate endDate, String location, String notes, Client client) {
+    public Itinerary(String name, String description,
+                     LocalDate startDate, LocalDate endDate,
+                     String location, String notes,
+                     String accommodation, Double accommodationCost,
+                     Client client) {
         this.name = name;
         this.description = description;
         this.startDate = startDate;
         this.endDate = endDate;
         this.location = location;
         this.notes = notes;
+        this.accommodation = accommodation;
+        this.accommodationCost = accommodationCost;
         this.client = client;
         // Initialize the list to avoid null pointer exceptions when adding activities later
         this.activities = new ArrayList<>();
     }
 
     // Include activities in constructors if necessary
-    public Itinerary(Long id, String name, String description, LocalDate startDate, LocalDate endDate, String location, String notes, Client client, List<Activity> activities) {
+    public Itinerary(Long id, String name, String description,
+                     LocalDate startDate, LocalDate endDate,
+                     String location, String notes,
+                     String accommodation, Double accommodationCost,
+                     Client client, List<Activity> activities) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -85,19 +95,38 @@ public class Itinerary {
         this.endDate = endDate;
         this.location = location;
         this.notes = notes;
+        this.accommodation = accommodation;
+        this.accommodationCost = accommodationCost;
         this.client = client;
         this.activities = activities;
     }
 
-    public Itinerary(String name, String description, LocalDate startDate, LocalDate endDate, String location, String notes, Client client, List<Activity> activities) {
+    public Itinerary(String name, String description,
+                     LocalDate startDate, LocalDate endDate,
+                     String location, String notes,
+                     String accommodation, Double accommodationCost,
+                     Client client, List<Activity> activities) {
         this.name = name;
         this.description = description;
         this.startDate = startDate;
         this.endDate = endDate;
         this.location = location;
         this.notes = notes;
+        this.accommodation = accommodation;
+        this.accommodationCost = accommodationCost;
         this.client = client;
         this.activities = activities;
+    }
+
+    public void calculateEstimatedCost() {
+        double totalActivitiesCost = 0.0;
+
+        for (Activity activity : activities) {
+            totalActivitiesCost += activity.getCost();
+        }
+
+        // Add the accommodation cost to the total activities cost to get the estimated total cost
+        this.estimatedCost = this.accommodationCost + totalActivitiesCost;
     }
 
     // Getters and setters
@@ -157,6 +186,30 @@ public class Itinerary {
         this.notes = notes;
     }
 
+    public String getAccommodation() {
+        return accommodation;
+    }
+
+    public void setAccommodation(String accommodation) {
+        this.accommodation = accommodation;
+    }
+
+    public double getAccommodationCost() {
+        return accommodationCost;
+    }
+
+    public void setAccommodationCost(double accommodationCost) {
+        this.accommodationCost = accommodationCost;
+    }
+
+    public double getEstimatedCost() {
+        return estimatedCost;
+    }
+
+    public void setEstimatedCost(double estimatedCost) {
+        this.estimatedCost = estimatedCost;
+    }
+
     public Client getClient() {
         return client;
     }
@@ -183,6 +236,9 @@ public class Itinerary {
                 ", endDate=" + endDate +
                 ", location='" + location + '\'' +
                 ", notes='" + notes + '\'' +
+                ", accommodation='" + accommodation + '\'' +
+                ", accommodationCost=" + accommodationCost +
+                ", estimatedCost=" + estimatedCost +
                 ", client=" + client +
                 ", activities=" + activities +
                 '}';

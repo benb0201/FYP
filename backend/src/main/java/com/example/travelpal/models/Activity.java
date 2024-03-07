@@ -20,11 +20,6 @@ public class Activity {
 
     private double cost;
 
-//    @ManyToOne(fetch = FetchType.EAGER)
-//    @JoinColumn(name = "itinerary_id")
-//    @JsonBackReference
-//    private Itinerary itinerary; // The reference to the Itinerary
-
     public Activity() {
     }
 

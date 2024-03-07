@@ -1,10 +1,12 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Register.css";
 import Login from "./Login";
 import ClientService from "../services/ClientService";
 
 const Register = () => {
   const [state, setState] = useState("Register");
+  const navigate = useNavigate();
   const [client, setClient] = useState({
     name: "",
     email: "",
@@ -17,16 +19,19 @@ const Register = () => {
     setClient({ ...client, [e.target.name]: value });
   };
 
-  const saveClient = (e) => {
+  const saveClient = async (e) => {
     e.preventDefault();
-    ClientService.saveClient(client)
-      .then((response) => {
-        console.log(response);
-        alert(response.data.message);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    try {
+      const response = await ClientService.saveClient(client);
+      console.log(response);
+      alert(response.data.message);
+      if (response.data.status === true) {
+        navigate("/home");
+      }
+    } catch (error) {
+      console.log(error);
+      alert("Error with servers"); //If theres bugs delete this
+    }
   };
 
   return (

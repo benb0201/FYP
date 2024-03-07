@@ -30,8 +30,7 @@ function App() {
   const [navbarLinks, setNavbarLinks] = useState(preLogin);
 
   const handleNavbarLinks = () => {
-    // setNavbarLinks(navbarLinks === preLogin ? postLogin : preLogin); ~Causing infinite loop
-    setNavbarLinks(postLogin);
+    setNavbarLinks(navbarLinks === preLogin ? postLogin : preLogin);
   };
 
   return (
@@ -40,7 +39,6 @@ function App() {
         <Navbar navbarLinks={navbarLinks} />
         <Routes>
           <Route
-            exact
             path={preLogin[0].url}
             element={
               <>
@@ -64,7 +62,7 @@ function App() {
             path={postLogin[0].url}
             element={
               <>
-                <Dashboard handleNavbarLinks={handleNavbarLinks} />
+                <Dashboard onHandleNavbarLinks={handleNavbarLinks} />
               </>
             }
           />

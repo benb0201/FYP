@@ -19,9 +19,15 @@
     width: 28%; /* Set a fixed width for the itinerary */
     height: 100%;
     overflow: auto;
-    animation: animate-in 1s ease-out forwards;
+    /* animation: animate-in 1s ease-out forwards; */
+    transition: transform 0.5s ease; /* Smooth transition for the transform property */
   }
 
+  .itinerary:hover {
+    transform: translateY(-5px);/* Moves the itinerary up by 5 pixels */
+    cursor: pointer;
+  }
+  
   .itThumbnail{
     display: block;
     width: 100%;
@@ -49,7 +55,7 @@
     color: #888;
   }
 
-  @keyframes animate-in {
+  /* @keyframes animate-in {
     from {
       opacity: 0;
       transform: translateX(-2rem);
@@ -58,4 +64,4 @@
       opacity: 1;
       transform: translateX(0);
     }
-  }
+  } */

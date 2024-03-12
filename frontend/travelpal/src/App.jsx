@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import hero_image from "./assets/images/plane_window.jpg";
@@ -12,6 +12,7 @@ import Navbar from "./components/Navbar";
 
 import Login from "./components/Login";
 import Dashboard from "./components/Dashboard";
+import UserProfile from "./components/UserProfile";
 
 function App() {
   const preLogin = [
@@ -22,8 +23,8 @@ function App() {
 
   const postLogin = [
     { url: "/home", title: "Home" },
-    { url: "/plan", title: "Plan" },
     { url: "/about", title: "About" },
+    { url: "/settings", title: "Profile & Settings" },
     { url: "/", title: "Sign Out" },
   ];
 
@@ -31,6 +32,7 @@ function App() {
 
   const handleNavbarLinks = () => {
     setNavbarLinks(navbarLinks === preLogin ? postLogin : preLogin);
+    // window.location.reload();
   };
 
   return (
@@ -51,8 +53,8 @@ function App() {
                 />
                 <Slider
                   imageSrc={slider_image2}
-                  title="Discover"
-                  subtitle="Discover new locations"
+                  title="Simplicity"
+                  subtitle="Focus on simplicity"
                   flipped={false}
                 />
               </>
@@ -63,6 +65,14 @@ function App() {
             element={
               <>
                 <Dashboard onHandleNavbarLinks={handleNavbarLinks} />
+              </>
+            }
+          />
+          <Route
+            path={postLogin[2].url}
+            element={
+              <>
+                <UserProfile />
               </>
             }
           />

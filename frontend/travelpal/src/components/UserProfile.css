@@ -1,0 +1,39 @@
+.user-profile {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+  
+  .user-profile .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .user-profile .form-group label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .user-profile .form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .btn-update {
+    background-color: #4CAF50; /* Green */
+    color: white;
+    padding: 10px 20px;
+    margin: 20px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  .btn-update:hover {
+    background-color: #45a049;
+  }
+  

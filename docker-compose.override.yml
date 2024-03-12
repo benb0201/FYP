@@ -1,0 +1,19 @@
+services:
+  frontend:
+    image: fyp24jd006/frontend:dev
+    build:
+      context: frontend/travelpal
+      dockerfile: Dockerfile
+      target: dev
+    ports:
+      - "3000:3000"
+    # volumes:
+    #  - type: bind
+    #    source: ./frontend
+    #    target: /app
+    #  - type: volume
+    #    target: /app/node_modules
+
+#  backend:
+#    ports:
+#      - "5000:5000"

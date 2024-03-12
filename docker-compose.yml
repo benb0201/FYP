@@ -8,16 +8,27 @@ services:
     build:
       context: backend
       dockerfile: Dockerfile
+    environment:
+      SPRING_DATASOURCE_USERNAME: travelplan
+      SPRING_DATASOURCE_PASSWORD: travelplan
     depends_on:
       postgresdb:
         condition: service_healthy
 
   postgresdb:
     image: postgres:16
+    volumes:
+      - db-data:/var/lib/postgresql/data
     environment:
+      POSTGRES_USER: travelplan
+      POSTGRES_PASSWORD: travelplan
+      POSTGRES_DB: travelplan
       POSTGRES_HOST_AUTH_METHOD: trust
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}" ]
       interval: 10s
       timeout: 5s
       retries: 5
+
+volumes:
+  db-data:

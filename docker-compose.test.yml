@@ -1,0 +1,19 @@
+# docker compose file for emulating production setup
+services:
+  frontend:
+    image: fyp24jd006/frontend:test
+    build:
+      context: frontend/travelpal
+      dockerfile: Dockerfile
+      target: prodtest
+      args:
+        PUBLIC_URL: /projects/FYP24JD006
+        REACT_APP_API: /projects/FYP24JD006/api/v1/client
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+
+  backend:
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgresdb:5432/travelplan

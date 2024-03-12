@@ -120,9 +120,11 @@ public class Itinerary {
 
     public void calculateEstimatedCost() {
         double totalActivitiesCost = 0.0;
-
-        for (Activity activity : activities) {
-            totalActivitiesCost += activity.getCost();
+        if (activities==null) this.estimatedCost = this.accommodationCost;
+        else {
+            for (Activity activity : activities) {
+                totalActivitiesCost += activity.getCost();
+            }
         }
 
         // Add the accommodation cost to the total activities cost to get the estimated total cost

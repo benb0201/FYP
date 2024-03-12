@@ -25,6 +25,7 @@ const Login = () => {
       alert(response.data.message);
       if (response.data.status === true) {
         navigate("/home");
+        window.location.reload();
       }
     } catch (err) {
       console.log(err);

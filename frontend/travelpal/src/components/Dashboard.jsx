@@ -6,7 +6,7 @@ import "./Dashboard.css";
 const Dashboard = ({ onHandleNavbarLinks }) => {
   useEffect(() => {
     // This code will run when the component mounts
-    console.log(onHandleNavbarLinks());
+    onHandleNavbarLinks();
   }, []);
 
   const [modalIsVisible, setModalIsVisible] = useState(false);

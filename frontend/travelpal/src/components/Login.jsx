@@ -1,10 +1,12 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Login.css";
 import Register from "./Register";
 import ClientService from "../services/ClientService";
 
 const Login = () => {
   const [state, setState] = useState("Login");
+  const navigate = useNavigate();
   const [client, setClient] = useState({
     email: "",
     password: "",
@@ -15,17 +17,18 @@ const Login = () => {
     setClient({ ...client, [e.target.name]: value });
   };
 
-  const authenticateClient = (e) => {
+  const authenticateClient = async (e) => {
     e.preventDefault();
-    ClientService.authenticateClient(client)
-      .then((response) => {
-        console.log(response);
-        alert(response.data.message);
-      })
-
-      .catch((error) => {
-        console.log(error);
-      });
+    try {
+      const response = await ClientService.authenticateClient(client);
+      console.log(response);
+      alert(response.data.message);
+      if (response.data.status === true) {
+        navigate("/home");
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (

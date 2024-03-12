@@ -1,10 +1,12 @@
 package com.example.travelpal.service;
 
+import com.example.travelpal.models.Activity;
 import com.example.travelpal.models.Itinerary;
 import com.example.travelpal.repository.ItineraryRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,11 +20,15 @@ public class ItineraryService {
         this.itineraryRepository = itineraryRepository;
     }
 
-    public List<Itinerary> getItineraries(){
-        return itineraryRepository.findAll();
+    public List<Itinerary> getItineraries(){ return itineraryRepository.findAll(); }
+
+    public Itinerary getItineraryById(Long itineraryId) {
+        return itineraryRepository.findById(itineraryId)
+                .orElseThrow(() -> new EntityNotFoundException("Itinerary with ID " + itineraryId + " not found"));
     }
 
     public void addNewItinerary(Itinerary itinerary) {
+        itinerary.calculateEstimatedCost(); // Calculate the estimated cost before saving
         itineraryRepository.save(itinerary);
         System.out.println(itinerary);
     }
@@ -34,8 +40,8 @@ public class ItineraryService {
         }else itineraryRepository.deleteById(itineraryId);
     }
 
-    //    @Transactional
-    public void updateItinerary(Itinerary itinerary, Long itineraryId) {
+        @Transactional
+    public void updateItinerary(Itinerary updatedItinerary, Long itineraryId) {
         Optional<Itinerary> itineraryOptional = itineraryRepository.findById(itineraryId);
         if (itineraryOptional.isEmpty()) {
             throw new EntityNotFoundException("Itinerary with ID " + itineraryId + " not found");
@@ -45,14 +51,23 @@ public class ItineraryService {
         Itinerary existingItinerary = itineraryOptional.get();
 
         // Update the attributes of the existing itinerary with the values from the new itinerary
-        existingItinerary.setName(itinerary.getName());
-        existingItinerary.setDescription(itinerary.getDescription());
-        existingItinerary.setStartDate(itinerary.getStartDate());
-        existingItinerary.setEndDate(itinerary.getEndDate());
-        existingItinerary.setDestinations(itinerary.getDestinations());
-        existingItinerary.setClient(itinerary.getClient());
+        existingItinerary.setName(updatedItinerary.getName());
+        existingItinerary.setDescription(updatedItinerary.getDescription());
+        existingItinerary.setStartDate(updatedItinerary.getStartDate());
+        existingItinerary.setEndDate(updatedItinerary.getEndDate());
+        existingItinerary.setLocation(updatedItinerary.getLocation());
+        existingItinerary.setNotes(updatedItinerary.getNotes());
+        existingItinerary.setAccommodation(updatedItinerary.getAccommodation());
+        existingItinerary.setAccommodationCost(updatedItinerary.getAccommodationCost());
 
-        // Save the updated itinerary back to the repository
-        itineraryRepository.save(existingItinerary);
+        // Update the activities
+        existingItinerary.getActivities().clear(); // Clear the current list
+        existingItinerary.getActivities().addAll(updatedItinerary.getActivities());
+        existingItinerary.calculateEstimatedCost(); // Recalculate the estimated cost with the updates
+
+        // No need to explicitly save the object due to the @Transactional annotation
+//         The changes will be automatically persisted at the end of the transaction
+////         Save the updated itinerary back to the repository
+//        itineraryRepository.save(existingItinerary);
     }
 }

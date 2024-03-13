@@ -17,3 +17,4 @@ services:
   backend:
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgresdb:5432/travelplan
+      CROSS_ORIGIN: http://localhost:8080

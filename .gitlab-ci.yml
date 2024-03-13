@@ -56,6 +56,7 @@ build frontend app:
   # override CI=true to stop npm treat warnings as errors
   variables:
     CI: "false"
+    REACT_APP_BACKEND_URL: ${PUBLIC_URL}
   script:
     - cd frontend/travelpal
     - ln -s /app/node_modules/

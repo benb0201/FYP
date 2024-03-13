@@ -7,8 +7,8 @@ services:
       dockerfile: Dockerfile
       target: prodtest
       args:
-        PUBLIC_URL: /projects/FYP24JD006
-        REACT_APP_BACKEND_URL: /projects/FYP24JD006
+        PUBLIC_URL: /projects/FYP24JD006/
+        REACT_APP_BACKEND_URL: /projects/FYP24JD006/
     ports:
       - "8080:80"
     depends_on:

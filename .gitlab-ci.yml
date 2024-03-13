@@ -1,0 +1,77 @@
+stages:
+  - image
+  - build
+  - test
+  - deploy
+
+# run jobs only for changes to  branches that are sources to a merge request
+# and all changes to the default branch
+# (don't run on commits to branches if there is no merge request from it)
+.standard-rules:       # hidden job to hold the common rules
+  rules:
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+# setting PUBLIC_URL here will propagate to the other jobs
+# and will create an optimized production build that can be hosted on
+# our fyp server. The same variable can be used to set up the
+# environment within the gitlab GUI
+variables:
+  PUBLIC_URL: "/projects/FYP24JD006/"
+
+build frontend deps image:
+  extends:
+    - .standard-rules
+  stage: image
+  tags:
+    - dockerbuild
+  script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
+    - docker build --pull --push --tag $CI_REGISTRY_IMAGE/deps:${CI_COMMIT_REF_SLUG} --target deps -f frontend/travelpal/Dockerfile frontend/travelpal
+
+build backend image:
+  extends:
+    - .standard-rules
+  stage: build
+  tags:
+    - dockerbuild
+  script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
+    - docker compose -f docker-compose.yml -f docker-compose.prod.yml build --pull --push backend
+
+# entrypoint is set to [""] so the Docker runner can run its scripts
+# runner attaches to the container and sends the scripts through its stdin
+build frontend app:
+  extends:
+    - .standard-rules
+  stage: build
+  tags:
+    - docker
+  image:
+    name: $CI_REGISTRY_IMAGE/deps:${CI_COMMIT_REF_SLUG}
+    entrypoint: [""]
+  artifacts:
+    paths:
+      - frontend/travelpal/build/
+  # override CI=true to stop npm treat warnings as errors
+  variables:
+    CI: "false"
+  script:
+    - cd frontend/travelpal
+    - ln -s /app/node_modules/
+    - npm run build
+
+deploy to fyp server:
+  stage: deploy
+  tags:
+    - fyp
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+  environment:
+    name: prod
+    url: https://fyp.cs.nuim.ie${PUBLIC_URL}
+  script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
+    - docker compose -f docker-compose.yml -f docker-compose.prod.yml down
+    - docker compose -f docker-compose.yml -f docker-compose.prod.yml up --pull always --no-build --wait
+    - rsync -rvc --cvs-exclude --delete frontend/travelpal/build/ /var/www/fyp${PUBLIC_URL}/

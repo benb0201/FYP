@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const ITINERARY_API_BASE_URL = "http://localhost:8080/api/v1/itinerary";
+const ITINERARY_API_BASE_URL = `${process.env.REACT_APP_BACKEND_URL}/api/v1/itinerary` || "http://localhost:8080/api/v1/itinerary";
 
 class ItineraryService {
   // Fetch all itineraries

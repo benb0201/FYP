@@ -13,7 +13,15 @@ services:
     #    target: /app
     #  - type: volume
     #    target: /app/node_modules
+  backend:
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgresdb:5432/travelplan
+    ports:
+      - "8080:8080"
 
+  postgresdb:
+    ports:
+      - "5432:5432"
 #  backend:
 #    ports:
 #      - "5000:5000"

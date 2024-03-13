@@ -10,4 +10,5 @@ RUN MAVEN_OPTS=-Dmaven.test.failure.ignore=true /app/mvnw package
 
 FROM gcr.io/distroless/java17-debian12 AS runner
 COPY --from=builder /app/target/travelpal-0.0.1-SNAPSHOT.jar /app.jar
+EXPOSE 8080
 CMD ["/app.jar"]

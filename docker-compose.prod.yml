@@ -1,0 +1,19 @@
+# docker compose file for emulating production setup
+services:
+  backend:
+    image: ${CI_REGISTRY_IMAGE}/backend:${CI_COMMIT_REF_SLUG}
+    build:
+      target: runner
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgresdb:5432/${CI_DATABASE}
+      SPRING_DATASOURCE_USERNAME: ${CI_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${CI_PASSWORD}
+      CROSS_ORIGIN: https://fyp.cs.nuim.ie:443
+    ports:
+      - "127.0.0.1:${CI_PORT}:8080"
+
+  postgresdb:
+    environment:
+      POSTGRES_DB: ${CI_DATABASE}
+      POSTGRES_USER: ${CI_USERNAME}
+      POSTGRES_PASSWORD: ${CI_PASSWORD}

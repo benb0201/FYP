@@ -17,8 +17,7 @@ CMD ["run", "start"]
 
 # builder, required for the prodtest target
 FROM dev AS builder
-ARG API_URI
-ARG REACT_APP_API
+ARG REACT_APP_BACKEND_URL
 ARG PUBLIC_URL
 RUN npm run build
 

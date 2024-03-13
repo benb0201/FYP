@@ -1,7 +1,6 @@
 import axios from "axios";
 
-const CLIENT_API_BASE_URL = process.env.REACT_APP_API || "http://localhost:8080/api/v1/client";
-console.log(CLIENT_API_BASE_URL);
+const CLIENT_API_BASE_URL = `${process.env.REACT_APP_BACKEND_URL}/api/v1/client` || "http://localhost:8080/api/v1/client";
 
 class ClientService {
   // Save a new client

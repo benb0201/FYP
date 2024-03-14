@@ -17,6 +17,8 @@
 .itinerary-details {
     padding: 20px;
     color: var(--mainText); /* Assuming you have these variables in your :root */
+    max-height: 61vh; /* Or any other value that fits your design */
+    overflow-y: auto; /* This will add a vertical scrollbar when needed */
   }
   
   .itinerary-details h2 {
@@ -55,8 +57,22 @@
   }
   
   .itinerary-details button:hover {
-    /* background-color: var(--lightBlue); */
     opacity: 0.8;
+  }
+
+  .activity-detail {
+    background-color: var(--cloudWhite); /* Example color */
+    margin-bottom: 10px;
+    border-radius: 5px;
+    list-style-type: none; /* Removes bullet points */
+  }
+  
+  .activity-detail h4 {
+    color: var(--mainBlue);
+  }
+  
+  .activity-detail p {
+    margin: 5px 0;
   }
   
   #delete {

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import "./NewItinerary.css";
+import NewActivity from "./NewActivity";
 
 const NewItinerary = ({
   onCancel,
@@ -19,6 +20,7 @@ const NewItinerary = ({
     accommodation: "",
     accommodationCost: 0,
   });
+  const [activities, setActivities] = useState(itinerary?.activities || []);
 
   useEffect(() => {
     if (itinerary) {
@@ -35,9 +37,22 @@ const NewItinerary = ({
     setStep(step - 1);
   };
 
-  // const changeHandler = (e) => {
-  //   setItineraryData({ ...itineraryData, [e.target.name]: e.target.value });
-  // };
+  const addActivity = () => {
+    setActivities([
+      ...activities,
+      { name: "", description: "", location: "", cost: 0 },
+    ]);
+  };
+
+  const updateActivity = (updatedActivity, index) => {
+    const newActivities = [...activities];
+    newActivities[index] = updatedActivity;
+    setActivities(newActivities);
+  };
+
+  const removeActivity = (index) => {
+    setActivities(activities.filter((_, i) => i !== index));
+  };
 
   const changeHandler = (e) => {
     const { name, value } = e.target;
@@ -50,12 +65,11 @@ const NewItinerary = ({
 
   const submitHandler = (e) => {
     e.preventDefault();
+    const completeData = { ...itineraryData, activities };
     if (tempItinerary) {
-      // Update existing itinerary
-      onUpdateItinerary({ ...itineraryData, id: tempItinerary.id });
+      onUpdateItinerary({ ...completeData, id: tempItinerary.id });
     } else {
-      // Add new itinerary
-      onAddItinerary(itineraryData);
+      onAddItinerary(completeData);
     }
     onCancel();
   };
@@ -163,6 +177,40 @@ const NewItinerary = ({
             placeholder="Accommodation Cost"
           />
         </p>
+        <p className="actions">
+          <button type="button" onClick={onCancel}>
+            Cancel
+          </button>
+          <button type="button" onClick={prevStep}>
+            Back
+          </button>
+          <button type="button" onClick={nextStep}>
+            Next
+          </button>
+        </p>
+      </form>
+    );
+  } else if (step === 4) {
+    // New Step for Activities
+    return (
+      <form className="form" onSubmit={(e) => e.preventDefault()}>
+        {activities.map((activity, index) => (
+          <NewActivity
+            key={index}
+            activity={activity}
+            onUpdateActivity={(updatedActivity) =>
+              updateActivity(updatedActivity, index)
+            }
+            onRemove={() => removeActivity(index)}
+          />
+        ))}
+        <button
+          type="button"
+          onClick={addActivity}
+          className="add-activity-btn"
+        >
+          Add Another Activity
+        </button>
         <p className="actions">
           <button type="button" onClick={onCancel}>
             Cancel

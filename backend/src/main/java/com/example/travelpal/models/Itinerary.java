@@ -49,40 +49,7 @@ public class Itinerary {
 
     public Itinerary() {
     }
-
-    //Constructors without Activities as parameters
-    public Itinerary(Long id, String name, String description, LocalDate startDate, LocalDate endDate, String location, String notes, Client client) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.location = location;
-        this.notes = notes;
-        this.client = client;
-        // Initialize the list to avoid null pointer exceptions when adding activities later
-        this.activities = new ArrayList<>();
-    }
-
-    public Itinerary(String name, String description,
-                     LocalDate startDate, LocalDate endDate,
-                     String location, String notes,
-                     String accommodation, Double accommodationCost,
-                     Client client) {
-        this.name = name;
-        this.description = description;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.location = location;
-        this.notes = notes;
-        this.accommodation = accommodation;
-        this.accommodationCost = accommodationCost;
-        this.client = client;
-        // Initialize the list to avoid null pointer exceptions when adding activities later
-        this.activities = new ArrayList<>();
-    }
-
-    // Include activities in constructors if necessary
+    
     public Itinerary(Long id, String name, String description,
                      LocalDate startDate, LocalDate endDate,
                      String location, String notes,

@@ -40,6 +40,21 @@ const ItineraryDetails = ({ itinerary, onDelete, onClose, onUpdate }) => {
         <p>
           <strong>Notes:</strong> {itinerary.notes}
         </p>
+        <h3>Activities</h3>
+        {itinerary.activities && itinerary.activities.length > 0 ? (
+          <ul>
+            {itinerary.activities.map((activity, index) => (
+              <li key={index} className="activity-detail">
+                <h4>{activity.name}</h4>
+                <p>Description: {activity.description}</p>
+                <p>Location: {activity.location}</p>
+                <p>Cost: €{activity.cost}</p>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>No activities added yet.</p>
+        )}
         <div className="button-container">
           <div className="edit-buttons">
             <button id="delete" onClick={deleteHandler}>

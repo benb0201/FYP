@@ -63,6 +63,12 @@
     color: var(--mainBlue); /* Earthy tone color for cost to make it stand out */
     text-align: right; /* Align cost to the right for a clear separation */
   }
+
+  .itDaysUntilStart, .itTripDuration {
+    font-weight: bold;
+    color: #5a8cb3;
+    text-align: right;
+  }
   
   .empty-slider-message {
     font-size: 16px;

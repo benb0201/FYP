@@ -30,7 +30,6 @@
 
 .form input,
 .form textarea{
-    display: block;
     width: 100%;
     font: inherit;
     padding: 0.5rem;
@@ -69,3 +68,62 @@
 .actions button[type='button']:hover{
     color: var(--mainBlue);
 }
+
+.activity-input-group {
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    border-radius: 8px;
+  }
+  
+  .add-activity-btn, .remove-activity-btn, .confrim-activity-btn, .toggle-activity-btn{
+    color: white;
+    border: none;
+    padding: 0.4rem 0.6rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8rem; /* Making font size smaller to save space */
+  }
+  
+  .add-activity-btn, .remove-activity-btn, .confrim-activity-btn{
+    background-color: var(--mainBlue);
+  }
+
+  .add-activity-btn:hover, .remove-activity-btn:hover, .confrim-activity-btn:hover {
+    background-color: #173b57;
+  }
+
+  .confrim-activity-btn{
+    margin-right: 1rem;
+  }
+
+  .toggle-activity-btn {
+    background-color: var(--lightBlue); /* Lighter blue for differentiation */
+    color: var(--mainText);
+    border: 2px solid var(--mainBlue);
+    margin-right: 0.5rem; /* Adjust spacing between toggle and remove buttons */
+  }
+  
+  .toggle-activity-btn:hover {
+    background-color: var(--earthTone); /* Change to an earthy tone on hover for a warm feel */
+    color: white; /* Ensure text is readable on the new background */
+  }
+  
+/* Adjustments for button container to layout buttons side by side */
+.activity-button-container {
+    display: flex;
+    justify-content: space-between; /* Distribute space evenly between buttons */
+    align-items: center; /* Align buttons vertically */
+    margin-bottom: 0.5rem;
+  }
+  
+  .activity-input-group input,
+  .activity-input-group textarea {
+    margin-bottom: 0.5rem; 
+  }
+  
+  .activity-input-group label {
+    display: block;
+    margin-bottom: 0.25rem;
+    color: white;
+    font-weight: bold;
+  }

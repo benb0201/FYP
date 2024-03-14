@@ -82,6 +82,18 @@ const ItineraryList = ({ isCreating, onStopCreating, onStartCreating }) => {
     }
   };
 
+  const calculateDaysUntilStart = (startDate) => {
+    const now = new Date();
+    const start = new Date(startDate);
+    return Math.max(Math.ceil((start - now) / (1000 * 60 * 60 * 24)), 0); // Ensure it's at least 0
+  };
+
+  const calculateTripDuration = (startDate, endDate) => {
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    return Math.ceil((end - start) / (1000 * 60 * 60 * 24));
+  };
+
   const selectItinerary = (itinerary) => {
     setSelectedItinerary(itinerary);
   };
@@ -121,6 +133,11 @@ const ItineraryList = ({ isCreating, onStopCreating, onStartCreating }) => {
                 name={itinerary.name}
                 description={itinerary.description}
                 totalCost={itinerary.estimatedCost}
+                daysUntilStart={calculateDaysUntilStart(itinerary.startDate)}
+                tripDuration={calculateTripDuration(
+                  itinerary.startDate,
+                  itinerary.endDate
+                )}
                 onClick={() => selectItinerary(itinerary)} // Pass the function to select an itinerary
               />
             ))

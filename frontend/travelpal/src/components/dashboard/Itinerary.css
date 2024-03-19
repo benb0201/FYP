@@ -18,6 +18,7 @@
     border-radius: 8px;
     padding: 10px;
     width: 28%; /* Set a fixed width for the itinerary */
+    margin: 10px 0; 
     height: 100%;
     overflow: auto;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Subtle shadow for depth */
@@ -74,6 +75,26 @@
     font-size: 16px;
     color: #888;
   }
+
+  /* Responsive design adjustments */
+@media screen and (max-width: 800px) {
+  .itinerary {
+      width: 46%; /* Adjust to display 2 cards in a row on tablet screens */
+      height: auto; /* Adjust height based on content */
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .itinerary {
+      width: 90%; /* Adjust to display 1 card at a time on mobile screens */
+      height: auto; /* Adjust height based on content */
+      margin: 10px auto; /* Center the card in the view */
+  }
+
+  .itThumbnail {
+      height: auto; /* Let the image height be dynamic */
+  }
+}
 
   /* @keyframes animate-in {
     from {

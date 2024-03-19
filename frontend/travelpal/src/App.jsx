@@ -1,47 +1,32 @@
 import "./App.css";
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { AuthProvider, useAuth } from "./components/AuthContext";
+
+import ProtectedRoute from "./components/ProtectedRoute";
 
 import hero_image from "./assets/images/plane_window.jpg";
 import slider_image1 from "./assets/images/passports.jpg";
 import slider_image2 from "./assets/images/climbing.jpg";
 
-import Hero from "./components/Hero";
-import Slider from "./components/Slider";
-import Navbar from "./components/Navbar";
+import Hero from "./components/landing/Hero";
+import Slider from "./components/landing/Slider";
+import NavbarLinks from "./components/common/NavBarLinks";
 
-import Login from "./components/Login";
-import Dashboard from "./components/Dashboard";
-import UserProfile from "./components/UserProfile";
+import Login from "./components/authentication/Login";
+import Register from "./components/authentication/Register";
+import Dashboard from "./components/dashboard/Dashboard";
+import UserProfile from "./components/dashboard/UserProfile";
+import About from "./components/common/About";
 
 function App() {
-  const preLogin = [
-    { url: "/", title: "Home" },
-    { url: "/about", title: "About" },
-    { url: "/login", title: "Sign Up / Log in" },
-  ];
-
-  const postLogin = [
-    { url: "/home", title: "Home" },
-    { url: "/about", title: "About" },
-    { url: "/settings", title: "Profile & Settings" },
-    { url: "/", title: "Sign Out" },
-  ];
-
-  const [navbarLinks, setNavbarLinks] = useState(preLogin);
-
-  const handleNavbarLinks = () => {
-    setNavbarLinks(navbarLinks === preLogin ? postLogin : preLogin);
-    // window.location.reload();
-  };
-
   return (
-    <Router basename={process.env.PUBLIC_URL}>
-      <>
-        <Navbar navbarLinks={navbarLinks} />
+    <AuthProvider>
+      <Router basename={process.env.PUBLIC_URL}>
+        <NavbarLinks />
         <Routes>
           <Route
-            path={preLogin[0].url}
+            path="/"
             element={
               <>
                 <Hero imageSrc={hero_image} />
@@ -60,26 +45,29 @@ function App() {
               </>
             }
           />
-          <Route
-            path={postLogin[0].url}
-            element={
-              <>
-                <Dashboard onHandleNavbarLinks={handleNavbarLinks} />
-              </>
-            }
-          />
-          <Route
-            path={postLogin[2].url}
-            element={
-              <>
-                <UserProfile />
-              </>
-            }
-          />
+          <Route path="/about" element={<About />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route
+            path="/home"
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/settings"
+            element={
+              <ProtectedRoute>
+                <UserProfile />
+              </ProtectedRoute>
+            }
+          />
+          {/* Add additional protected routes as needed */}
         </Routes>
-      </>
-    </Router>
+      </Router>
+    </AuthProvider>
   );
 }
 

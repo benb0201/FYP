@@ -4,28 +4,39 @@ const CLIENT_API_BASE_URL = `${
   process.env.REACT_APP_BACKEND_URL || "http://localhost:8080"
 }/api/v1/client`;
 
+const axiosInstance = axios.create({
+  baseURL: CLIENT_API_BASE_URL,
+});
+
+axiosInstance.interceptors.request.use(
+  (config) => {
+    // Attempt to retrieve the authentication token from local storage
+    const token = localStorage.getItem("clientToken");
+    if (token) {
+      config.headers["Authorization"] = "Bearer " + token;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
 class ClientService {
-  // Save a new client
   saveClient(client) {
-    return axios.post(CLIENT_API_BASE_URL + "/register", client);
+    return axiosInstance.post("/register", client);
   }
-  // Authenticate an existing client
   authenticateClient(client) {
-    return axios.post(CLIENT_API_BASE_URL + "/login", client);
+    return axiosInstance.post("/login", client);
   }
-  // Fetch all clients
   getClients() {
-    return axios.get(CLIENT_API_BASE_URL);
+    return axiosInstance.get("/");
   }
-
-  // Delete a client by ID
   deleteClient(clientId) {
-    return axios.delete(CLIENT_API_BASE_URL + "/" + clientId);
+    return axiosInstance.delete("/" + clientId);
   }
-
-  // Update a client's information
   updateClient(clientId, client) {
-    return axios.put(CLIENT_API_BASE_URL + "/" + clientId, client);
+    return axiosInstance.put("/" + clientId, client);
   }
 }
 

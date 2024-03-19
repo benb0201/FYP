@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./UserProfile.css";
-import ClientService from "../services/ClientService";
+import ClientService from "../../services/ClientService";
 
 const UserProfile = ({ clientId }) => {
   const [clientInfo, setClientInfo] = useState({

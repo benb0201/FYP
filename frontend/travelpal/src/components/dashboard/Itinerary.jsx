@@ -1,5 +1,5 @@
 import "./Itinerary.css";
-import planeImg from "../assets/images/plane_window.jpg";
+import planeImg from "../../assets/images/plane_window.jpg";
 
 function Itinerary({
   name,

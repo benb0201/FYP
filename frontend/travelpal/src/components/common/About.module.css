@@ -1,0 +1,87 @@
+
+  .greetingWrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 5rem;
+  }
+
+  .aboutWrapper{ /*https://www.cssmatic.com/box-shadow for box shadow*/
+    /* Layout properties */
+    display: flex;
+    flex-direction: column;
+    max-width: 95%; /* Consider using max-width for better responsiveness */
+    height: 70vh;
+    margin: 0 auto 2vh; /* Bottom margin based on viewport height */
+    padding-top: 2vh;/* Top padding based on viewport height */
+
+    overflow-y  : auto;
+
+    /* Border properties */
+    border: 1px solid #c1c1c1;
+    border-radius: 10px;
+    background-color: #fff;
+
+    -webkit-box-shadow: 18px 15px 20px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 18px 15px 20px 0px rgba(0,0,0,0.75);
+    box-shadow: 18px 15px 20px 0px rgba(0,0,0,0.75);
+  }
+
+  .heading {
+    width: auto;    
+    margin: 5rem;
+    padding: 1rem;
+    display: flex;
+    border-bottom: 2px solid #467091;
+  }
+
+  .aboutSection {
+    margin: 0 2rem;
+    padding: 1rem;
+  }
+  
+  .aboutSection h3 {
+    margin-bottom: 1rem;
+    color: #467091; /* Utilize the main blue color for subsection headings */
+  }
+  
+  .aboutSection p, .aboutSection ul {
+    text-align: justify; /* Improve readability of the text */
+    margin-bottom: 1rem;
+  }
+  
+  .aboutSection ul {
+    list-style-type: circle; /* Style for list items */
+    margin-left: 2rem; /* Indent list items */
+  }
+  
+  .aboutSection li {
+    margin-bottom: 0.5rem; /* Space between list items */
+  }
+  
+    /* Responsive design adjustments */
+    @media screen and (max-width: 768px) {
+      .greetingWrapper, .heading {
+        margin: 2rem 0; /* Adjust top and bottom margin for smaller screens */
+        flex-direction: column;
+      }
+    
+      .aboutWrapper {
+        width: auto; /* Allow the wrapper to adjust to the screen size */
+        height: 70vh;
+        margin: 4rem 2rem 0; /* Provide some space around the wrapper */
+        padding: 2%; /* Responsive padding */
+      }
+    
+      .aboutSection {
+        margin: 1rem 0.5rem; /* Adjust margins for smaller screens */
+      }
+    
+      .aboutSection h3, .aboutSection p, .aboutSection ul, .aboutSection li {
+        text-align: left; /* Align text to the left for readability on small screens */
+      }
+    
+      .aboutSection ul {
+        margin-left: 1rem; /* Adjust list indentation on smaller screens */
+      }
+    }

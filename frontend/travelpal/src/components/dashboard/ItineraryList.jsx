@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import ItineraryService from "../services/ItineraryService";
+import ItineraryService from "../../services/ItineraryService";
 import Itinerary from "./Itinerary";
 import "./ItineraryList.css";
-import NewItinerary from "./NewItinerary";
+import NewItinerary from "../NewItinerary";
 import ItineraryDetails from "./ItineraryDetails";
-import Modal from "./Modal";
+import Modal from "../common/Modal";
 
 const ItineraryList = ({ isCreating, onStopCreating, onStartCreating }) => {
   const [itineraries, setItineraries] = useState([]);

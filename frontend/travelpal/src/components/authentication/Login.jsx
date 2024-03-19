@@ -1,17 +1,17 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./Register.css";
-import Login from "./Login";
-import ClientService from "../services/ClientService";
+import { useAuth } from "../AuthContext";
+import "./Login.css";
+import Register from "./Register";
+import ClientService from "../../services/ClientService";
 
-const Register = () => {
-  const [state, setState] = useState("Register");
+const Login = () => {
+  const [state, setState] = useState("Login");
   const navigate = useNavigate();
+  const { login } = useAuth(); // Use login from useAuth to update auth state
   const [client, setClient] = useState({
-    name: "",
     email: "",
     password: "",
-    dob: "",
   });
 
   const changeHandler = (e) => {
@@ -19,42 +19,33 @@ const Register = () => {
     setClient({ ...client, [e.target.name]: value });
   };
 
-  const saveClient = async (e) => {
+  const authenticateClient = async (e) => {
     e.preventDefault();
     try {
-      const response = await ClientService.saveClient(client);
+      const response = await ClientService.authenticateClient(client);
       console.log(response);
       alert(response.data.message);
       if (response.data.status === true) {
-        navigate("/home");
-        window.location.reload();
+        login(); // Update authentication state
+        navigate("/home"); // Navigate without reloading
+        // window.location.reload();
       }
-    } catch (error) {
-      console.log(error);
-      alert("Error with servers"); //If theres bugs delete this
+    } catch (err) {
+      console.log(err);
     }
   };
 
   return (
     <>
-      {state === "Login" ? (
-        <Login />
+      {state === "Register" ? (
+        <Register />
       ) : (
         <div className="container">
           <div className="header">
-            <div className="text">Sign Up</div>
+            <div className="text">Log In</div>
             <div className="underline"></div>
           </div>
           <div className="inputs">
-            <div className="input">
-              <input
-                type="text"
-                name="name"
-                value={client.name}
-                placeholder="Name"
-                onChange={(e) => changeHandler(e)}
-              />
-            </div>
             <div className="input">
               <input
                 type="email"
@@ -73,29 +64,20 @@ const Register = () => {
                 onChange={(e) => changeHandler(e)}
               />
             </div>
-            <div className="input">
-              {/* <label>DOB:</label> */}
-              <input
-                type="date"
-                name="dob"
-                value={client.dob}
-                onChange={(e) => changeHandler(e)}
-              />
-            </div>
           </div>
-          <div className="login">
-            Already registered?{" "}
+          <div className="register">
+            Not Registered?{" "}
             <span
               onClick={() => {
-                setState("Login");
+                setState("Register");
               }}
             >
-              Login Here
+              Sign Up Here
             </span>
           </div>
           <div className="submit-container">
-            <div className="submit" onClick={(e) => saveClient(e)}>
-              Sign Up
+            <div className="submit" onClick={(e) => authenticateClient(e)}>
+              Log In
             </div>
           </div>
         </div>
@@ -104,4 +86,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Login;

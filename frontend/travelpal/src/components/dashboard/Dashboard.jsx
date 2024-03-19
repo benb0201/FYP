@@ -3,12 +3,7 @@ import ItineraryList from "./ItineraryList";
 import DashboardHeader from "./DashboardHeader";
 import "./Dashboard.css";
 
-const Dashboard = ({ onHandleNavbarLinks }) => {
-  useEffect(() => {
-    // This code will run when the component mounts
-    onHandleNavbarLinks();
-  }, []);
-
+const Dashboard = () => {
   const [modalIsVisible, setModalIsVisible] = useState(false);
 
   function showModalHandler() {

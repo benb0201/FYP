@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Modal from "./Modal"; // Assuming Modal is in the same directory
+import Modal from "../common/Modal"; // Assuming Modal is in the same directory
 import "./ItineraryDetails.css"; // Create a CSS file for styling if needed
 
 const ItineraryDetails = ({ itinerary, onDelete, onClose, onUpdate }) => {

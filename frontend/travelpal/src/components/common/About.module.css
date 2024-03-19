@@ -62,14 +62,14 @@
     /* Responsive design adjustments */
     @media screen and (max-width: 768px) {
       .greetingWrapper, .heading {
-        margin: 2rem 0; /* Adjust top and bottom margin for smaller screens */
+        margin: 2rem 0 0; /* Adjust top and bottom margin for smaller screens */
         flex-direction: column;
       }
     
       .aboutWrapper {
         width: auto; /* Allow the wrapper to adjust to the screen size */
-        height: 70vh;
-        margin: 4rem 2rem 0; /* Provide some space around the wrapper */
+        height: 65vh;
+        margin: 4rem 2rem 2rem; /* Provide some space around the wrapper */
         padding: 2%; /* Responsive padding */
       }
     

@@ -11,21 +11,7 @@
   --cloudWhite: #f0f4f7; /* A soft white for background elements, akin to cloud colors */
 }
 
-  h1,h2,h3,h4,h5,h6,strong{
-    color: var(--mainText);
-    font-weight: 800;
-  }
-
-  p,li,span,label,input,textarea{
-    color: var(--secondaryText);
-  }
-
-  ul{
-    list-style: none;
-  }
-
   .background{
     display: flex;
-    padding-bottom: 20px;
   }
   

@@ -28,6 +28,7 @@ const Register = () => {
       console.log(response);
       alert(response.data.message);
       if (response.data.status === true) {
+        localStorage.setItem("clientId", response.data.clientId);
         login(); // Update authentication state
         navigate("/home"); // Navigate without reloading
         // window.location.reload();

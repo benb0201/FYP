@@ -13,7 +13,8 @@ const ItineraryList = ({ isCreating, onStopCreating, onStartCreating }) => {
   // Defining fetchItineraries outside of useEffect to make it reusable
   const fetchItineraries = async () => {
     try {
-      const response = await ItineraryService.getItineraries();
+      const clientId = localStorage.getItem("clientId");
+      const response = await ItineraryService.getItineraries(clientId);
       // Reverse the fetched itineraries before setting the state (so they appear as latest first)
       setItineraries(response.data.reverse());
     } catch (err) {

@@ -16,7 +16,7 @@ import NavbarLinks from "./components/common/NavBarLinks";
 import Login from "./components/authentication/Login";
 import Register from "./components/authentication/Register";
 import Dashboard from "./components/dashboard/Dashboard";
-import UserProfile from "./components/dashboard/UserProfile";
+import UserSettings from "./components/dashboard/UserSettings";
 import About from "./components/common/About";
 
 function App() {
@@ -60,11 +60,10 @@ function App() {
             path="/settings"
             element={
               <ProtectedRoute>
-                <UserProfile />
+                <UserSettings />
               </ProtectedRoute>
             }
           />
-          {/* Add additional protected routes as needed */}
         </Routes>
       </Router>
     </AuthProvider>

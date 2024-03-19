@@ -8,19 +8,19 @@ const axiosInstance = axios.create({
   baseURL: CLIENT_API_BASE_URL,
 });
 
-axiosInstance.interceptors.request.use(
-  (config) => {
-    // Attempt to retrieve the authentication token from local storage
-    const token = localStorage.getItem("clientToken");
-    if (token) {
-      config.headers["Authorization"] = "Bearer " + token;
-    }
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  }
-);
+// axiosInstance.interceptors.request.use(
+//   (config) => {
+//     // Attempt to retrieve the authentication token from local storage
+//     const token = localStorage.getItem("clientToken");
+//     if (token) {
+//       config.headers["Authorization"] = "Bearer " + token;
+//     }
+//     return config;
+//   },
+//   (error) => {
+//     return Promise.reject(error);
+//   }
+// );
 
 class ClientService {
   saveClient(client) {
@@ -31,6 +31,9 @@ class ClientService {
   }
   getClients() {
     return axiosInstance.get("/");
+  }
+  getClient(clientId) {
+    return axiosInstance.get(`/${clientId}`);
   }
   deleteClient(clientId) {
     return axiosInstance.delete("/" + clientId);

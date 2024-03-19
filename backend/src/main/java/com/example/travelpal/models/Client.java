@@ -29,13 +29,6 @@ public class Client {
     @Column(name = "password")//(unique = true)
     private String password;
 
-//    @ManyToMany(fetch =FetchType.EAGER, cascade = CascadeType.ALL)
-//    @JoinTable(name = "client_role_junction",
-//            joinColumns = @JoinColumn(name = "client_id"),
-//            inverseJoinColumns = @JoinColumn(name = "role_id")
-//    )
-//    private Set<Role> authorities;
-
     @Column//(name = "date_of_birth")
     private LocalDate dob;
 

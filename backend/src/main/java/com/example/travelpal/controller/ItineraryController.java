@@ -5,6 +5,7 @@ import com.example.travelpal.models.Itinerary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -18,9 +19,16 @@ public class ItineraryController {
         this.itineraryService = itineraryService;
     }
 
+    // Combined endpoint to retrieve itineraries conditionally based on clientId
     @GetMapping
-    public List<Itinerary> getItineraries(){
-        return itineraryService.getItineraries();
+    public List<Itinerary> getItineraries(@RequestParam(required = false) Long clientId) {
+        if (clientId != null) {
+            // Endpoint to retrieve itineraries for the authenticated client
+            //THIS IS NOT SECURE YET
+            return itineraryService.getItinerariesByClientId(clientId);
+        } else {
+            return itineraryService.getItineraries();
+        }
     }
 
     @GetMapping(path = "{itineraryId}")

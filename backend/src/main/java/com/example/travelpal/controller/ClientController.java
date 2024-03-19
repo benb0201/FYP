@@ -22,6 +22,12 @@ public class ClientController {
         this.clientService = clientService;
     }
 
+    @GetMapping(path = "/{clientid}")
+    public ResponseEntity<Client> getClientById(@PathVariable("clientid") Long clientId) {
+        Client client = clientService.getClientById(clientId);
+        return ResponseEntity.ok(client);
+    }
+
     @GetMapping
     public List<Client> getClients(){
         return clientService.getClients();
@@ -45,8 +51,12 @@ public class ClientController {
     }
 
     @PutMapping(path = "{clientid}")
-    public void updateClient(@RequestBody Client client,
-                             @PathVariable("clientid") Long clientId){
-        clientService.updateClient(client, clientId);
+    public ResponseEntity<?> updateClient(@RequestBody Client client, @PathVariable("clientid") Long clientId) {
+        boolean isUpdated = clientService.updateClient(client, clientId);
+        if (isUpdated) {
+            return ResponseEntity.ok("Client updated successfully");
+        } else {
+            return ResponseEntity.badRequest().body("Error updating client");
+        }
     }
 }

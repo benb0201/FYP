@@ -31,6 +31,11 @@ public class ClientService {
         this.encoder = encoder;
     }
 
+    public Client getClientById(Long clientId) {
+        return clientRepository.findById(clientId)
+                .orElseThrow(() -> new EntityNotFoundException("Client with ID " + clientId + " not found"));
+    }
+
     public List<Client> getClients(){
         return clientRepository.findAll();
     }
@@ -91,10 +96,11 @@ public class ClientService {
     }
 
 //    @Transactional
-    public void updateClient(Client client, Long clientId) {
+    public boolean updateClient(Client client, Long clientId) {
         Optional<Client> clientOptional = clientRepository.findById(clientId);
         if (clientOptional.isEmpty()) {
-            throw new EntityNotFoundException("Client with ID " + clientId + " not found");
+//            throw new EntityNotFoundException("Client with ID " + clientId + " not found");
+            return false;
         }
 
         // Get the existing client from the Optional
@@ -107,5 +113,6 @@ public class ClientService {
 
         // Save the updated client back to the repository
         clientRepository.save(existingClient);
+        return true;
     }
 }

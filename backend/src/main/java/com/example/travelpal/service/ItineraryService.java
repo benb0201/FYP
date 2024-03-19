@@ -20,6 +20,10 @@ public class ItineraryService {
         this.itineraryRepository = itineraryRepository;
     }
 
+    // Adding method to retrieve itineraries by the client ID
+    public List<Itinerary> getItinerariesByClientId(Long clientId) {
+        return itineraryRepository.findByClientId(clientId);
+    }
     public List<Itinerary> getItineraries(){ return itineraryRepository.findAll(); }
 
     public Itinerary getItineraryById(Long itineraryId) {

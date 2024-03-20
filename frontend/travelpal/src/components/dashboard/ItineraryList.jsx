@@ -119,19 +119,15 @@ const ItineraryList = ({ isCreating, onStopCreating, onStartCreating }) => {
         </Modal>
       ) : null}
       <div className="itinerary-wrapper">
-        {window.innerWidth <= 800 ? (
-          <div className="itinerary-header">
-            <h2 className="heading">My Itineraries</h2>
-            <button
-              className="add-itinerary-button-top"
-              onClick={onStartCreating}
-            >
-              Create
-            </button>
-          </div>
-        ) : (
+        <div className="itinerary-header">
           <h2 className="heading">My Itineraries</h2>
-        )}
+          <button
+            className="add-itinerary-button-top"
+            onClick={onStartCreating}
+          >
+            Create
+          </button>
+        </div>
         <div
           className={
             itineraries.length <= 3 ? "itinerary-slider" : "itinerary-slider2"

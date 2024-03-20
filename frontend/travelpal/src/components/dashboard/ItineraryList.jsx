@@ -9,14 +9,17 @@ import Modal from "../common/Modal";
 const ItineraryList = ({ isCreating, onStopCreating, onStartCreating }) => {
   const [itineraries, setItineraries] = useState([]);
   const [selectedItinerary, setSelectedItinerary] = useState(null);
+  const [isFetching, setIsFetching] = useState(false);
 
   // Defining fetchItineraries outside of useEffect to make it reusable
   const fetchItineraries = async () => {
     try {
+      setIsFetching(true);
       const clientId = localStorage.getItem("clientId");
       const response = await ItineraryService.getItineraries(clientId);
       // Reverse the fetched itineraries before setting the state (so they appear as latest first)
       setItineraries(response.data.reverse());
+      setIsFetching(false);
     } catch (err) {
       console.log(err);
       alert("Issues recieving itinerary data: " + err.message);
@@ -116,13 +119,29 @@ const ItineraryList = ({ isCreating, onStopCreating, onStartCreating }) => {
         </Modal>
       ) : null}
       <div className="itinerary-wrapper">
-        <h2 className="heading">My Itineraries</h2>
+        {window.innerWidth <= 800 ? (
+          <div className="itinerary-header">
+            <h2 className="heading">My Itineraries</h2>
+            <button
+              className="add-itinerary-button-top"
+              onClick={onStartCreating}
+            >
+              Create
+            </button>
+          </div>
+        ) : (
+          <h2 className="heading">My Itineraries</h2>
+        )}
         <div
           className={
             itineraries.length <= 3 ? "itinerary-slider" : "itinerary-slider2"
           }
         >
-          {itineraries.length === 0 ? (
+          {isFetching ? (
+            <div style={{ textAlign: "center" }}>
+              <h2>Loading Itineraries...</h2>
+            </div>
+          ) : itineraries.length === 0 ? (
             <div style={{ textAlign: "center" }}>
               <h2>You have no itineraries yet</h2>
               <p>Start creating some!</p>

@@ -24,7 +24,8 @@ const UserSettings = () => {
 
   return (
     <div className={styles.greetingWrapper}>
-      <h2 className={styles.heading}>User Settings</h2>
+      <h2 className={styles.heading}>User Settings</h2>{" "}
+      <h3 style={{ color: "gray", opacity: 0.5 }}>(Work In Progress)</h3>
       <div className={styles.settingsWrapper}>
         <form onSubmit={handleSubmit} className={styles.settingsForm}>
           <section className={styles.settingSection}>

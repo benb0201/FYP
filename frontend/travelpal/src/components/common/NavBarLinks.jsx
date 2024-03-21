@@ -16,7 +16,7 @@ const NavBarLinks = () => {
     ? [
         { url: "/home", title: "Home" },
         { url: "/about", title: "About" },
-        { url: "/settings", title: "Profile & Settings" },
+        { url: "/settings", title: "Settings" },
         { url: "/", title: "Sign Out", action: handleLogout },
       ]
     : [

@@ -71,7 +71,7 @@
 }
 
 input:checked + .slider {
-  background-color: #2196F3;
+  background-color: #4CAF50;
 }
 
 .slider.round {
@@ -91,7 +91,7 @@ input:checked + .slider {
 
 .btnSave {
   padding: 10px 20px;
-  background-color: #4CAF50;
+  background-color: #2a5d84;
   color: white;
   border: none;
   border-radius: 5px;
@@ -100,5 +100,5 @@ input:checked + .slider {
 }
 
 .btnSave:hover {
-  background-color: #45a049;
+  background-color: #517b9b;
 }

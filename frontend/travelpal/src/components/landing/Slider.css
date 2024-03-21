@@ -45,3 +45,27 @@ body{
         height: 90vh;
     }
 }
+
+@media screen and (max-width: 480px){
+
+    .slider_image{
+        width: 90%;
+        height: 75vh;
+    }
+
+    .slider_title {
+        font-size: 29px;
+    }
+}
+
+@media screen and (max-width: 350px){
+
+    .slider_image{
+        width: 90%;
+        height: 65vh;
+    }
+
+    .slider_title {
+        font-size: 24px;
+    }
+}

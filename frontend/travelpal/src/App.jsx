@@ -1,7 +1,6 @@
 import "./App.css";
-import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { AuthProvider, useAuth } from "./components/AuthContext";
+import { AuthProvider } from "./components/AuthContext";
 
 import ProtectedRoute from "./components/ProtectedRoute";
 

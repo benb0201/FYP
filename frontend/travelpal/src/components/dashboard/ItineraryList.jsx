@@ -130,7 +130,11 @@ const ItineraryList = ({ isCreating, onStopCreating, onStartCreating }) => {
         </div>
         <div
           className={
-            itineraries.length <= 3 ? "itinerary-slider" : "itinerary-slider2"
+            itineraries.length === 0
+              ? "itinerary-slider3"
+              : itineraries.length <= 3
+              ? "itinerary-slider"
+              : "itinerary-slider2"
           }
         >
           {isFetching ? (

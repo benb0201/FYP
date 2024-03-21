@@ -5,15 +5,15 @@ const UserSettings = () => {
   const [notificationsEnabled, setNotificationsEnabled] = useState(false);
   const [theme, setTheme] = useState("light");
 
-  const handleNotificationChange = () => {
+  const notificationChangeHandler = () => {
     setNotificationsEnabled(!notificationsEnabled);
   };
 
-  const handleThemeChange = (event) => {
+  const themeChangeHandler = (event) => {
     setTheme(event.target.value);
   };
 
-  const handleSubmit = (event) => {
+  const submitHandler = (event) => {
     event.preventDefault();
     alert(
       `Settings updated:\n- Notifications: ${
@@ -25,16 +25,18 @@ const UserSettings = () => {
   return (
     <div className={styles.greetingWrapper}>
       <h2 className={styles.heading}>User Settings</h2>{" "}
-      <h3 style={{ color: "gray", opacity: 0.5 }}>(Work In Progress)</h3>
+      <h3 style={{ color: "gray", opacity: 0.5 }}>
+        (Work In Progress for Future Update)
+      </h3>
       <div className={styles.settingsWrapper}>
-        <form onSubmit={handleSubmit} className={styles.settingsForm}>
+        <form onSubmit={submitHandler} className={styles.settingsForm}>
           <section className={styles.settingSection}>
             <h3>Notifications</h3>
             <label className={styles.switch}>
               <input
                 type="checkbox"
                 checked={notificationsEnabled}
-                onChange={handleNotificationChange}
+                onChange={notificationChangeHandler}
               />
               <span className={styles.slider}></span>
             </label>
@@ -43,7 +45,7 @@ const UserSettings = () => {
             <h3>Theme</h3>
             <select
               value={theme}
-              onChange={handleThemeChange}
+              onChange={themeChangeHandler}
               className={styles.themeSelect}
             >
               <option value="light">Light</option>

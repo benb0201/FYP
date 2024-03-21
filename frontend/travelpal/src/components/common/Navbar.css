@@ -38,6 +38,7 @@
     border-width: 0px 0px 2px 0px;
     border-color: transparent;
     transition: 0.5s;
+    cursor: pointer;
 }
 
 .navbar_link:hover{

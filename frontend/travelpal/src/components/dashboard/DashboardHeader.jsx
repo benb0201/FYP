@@ -5,9 +5,7 @@ import "./DashboardHeader.css";
 function DashboardHeader({ onCreatePost }) {
   return (
     <header className="header">
-      <div className="greeting-wrapper">
-        <h1>Dashboard</h1>
-      </div>
+      <h1>Dashboard</h1>
     </header>
   );
 }

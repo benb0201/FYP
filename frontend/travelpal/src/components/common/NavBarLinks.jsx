@@ -1,6 +1,6 @@
 import React from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate hook for redirection
-import { useAuth } from "../AuthContext"; // Ensure you import useAuth
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../AuthContext";
 import Navbar from "./Navbar";
 
 const NavBarLinks = () => {
@@ -17,7 +17,7 @@ const NavBarLinks = () => {
         { url: "/home", title: "Home" },
         { url: "/about", title: "About" },
         { url: "/settings", title: "Profile & Settings" },
-        { url: "/", title: "Sign Out", action: handleLogout }, // Modify this to include logout action
+        { url: "/", title: "Sign Out", action: handleLogout },
       ]
     : [
         { url: "/", title: "Home" },

@@ -59,6 +59,14 @@ public class Client {
         this.dob = dob;
         this.password = password;
     }
+    public Client(Long id,
+                  String name) {
+        this.id = id;
+        this.name = name;
+    }
+    public Client(Long id) {
+        this.id = id;
+    }
 
     public Long getId() {
         return id;

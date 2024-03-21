@@ -2,10 +2,10 @@ import { MdPostAdd } from "react-icons/md";
 
 import "./DashboardHeader.css";
 
-function DashboardHeader({ onCreatePost }) {
+function DashboardHeader({ clientName }) {
   return (
     <header className="header">
-      <h1>Dashboard</h1>
+      <h1>{clientName ? `${clientName}'s Dashboard` : "Dashboard"}</h1>
     </header>
   );
 }

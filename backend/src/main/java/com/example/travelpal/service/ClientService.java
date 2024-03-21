@@ -61,11 +61,11 @@ public class ClientService {
         );
 
         // Save the new client to the database
-        clientRepository.save(client1);
-        System.out.println(client1);
+        Client savedClient = clientRepository.save(client1);
+        System.out.println(savedClient);
 
         // Return a RegisterResponse indicating successful registration
-        return new RegisterResponse("Registration Successful", true);
+        return new RegisterResponse("Registration Successful", true, savedClient.getId());
     }
 
     public LoginResponse loginClient(LoginDTO loginDTO) {
@@ -84,7 +84,7 @@ public class ClientService {
         boolean isPwdRight = encoder.matches(password, encodedPassword);
 
         // Return a LoginResponse based on the result of finding the client by email and password
-        return new LoginResponse(isPwdRight ? "Login Success" : "Password does not match", isPwdRight);
+        return new LoginResponse(isPwdRight ? "Login Success" : "Password does not match", isPwdRight, client.getId());
     }
 
 

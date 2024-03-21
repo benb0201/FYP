@@ -7,12 +7,10 @@ const ITINERARY_API_BASE_URL = `${
 class ItineraryService {
   // Fetch all itineraries for a specific client
   getItineraries(clientId) {
-    const url = `${ITINERARY_API_BASE_URL}?clientId=${clientId}`;
+    const url = clientId
+      ? `${ITINERARY_API_BASE_URL}?clientId=${clientId}`
+      : ITINERARY_API_BASE_URL;
     return axios.get(url);
-  }
-
-  getItineraries() {
-    return axios.get(ITINERARY_API_BASE_URL);
   }
 
   // Save a new itinerary

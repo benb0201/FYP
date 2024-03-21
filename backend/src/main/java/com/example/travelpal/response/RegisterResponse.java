@@ -3,6 +3,13 @@ package com.example.travelpal.response;
 public class RegisterResponse {
     String message;
     Boolean status;
+    Long id;
+
+    public RegisterResponse(String message, Boolean status, Long id) {
+        this.message = message;
+        this.status = status;
+        this.id = id;
+    }
 
     public RegisterResponse(String message, Boolean status) {
         this.message = message;
@@ -28,11 +35,20 @@ public class RegisterResponse {
         this.status = status;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         return "RegisterResponse{" +
                 "message='" + message + '\'' +
                 ", status=" + status +
+                ", id=" + id +
                 '}';
     }
 }

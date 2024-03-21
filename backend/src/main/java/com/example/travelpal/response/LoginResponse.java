@@ -3,6 +3,13 @@ package com.example.travelpal.response;
 public class LoginResponse {
     String message;
     Boolean status;
+    Long id;
+
+    public LoginResponse(String message, Boolean status, Long id) {
+        this.message = message;
+        this.status = status;
+        this.id = id;
+    }
 
     public LoginResponse(String message, Boolean status) {
         this.message = message;
@@ -10,6 +17,14 @@ public class LoginResponse {
     }
 
     public LoginResponse() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getMessage() {
@@ -33,6 +48,7 @@ public class LoginResponse {
         return "LoginResponse{" +
                 "message='" + message + '\'' +
                 ", status=" + status +
+                ", id=" + id +
                 '}';
     }
 }

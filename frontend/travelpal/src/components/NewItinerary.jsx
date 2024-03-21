@@ -65,10 +65,23 @@ const NewItinerary = ({
 
   const submitHandler = (e) => {
     e.preventDefault();
-    const completeData = { ...itineraryData, activities };
+    const clientId = localStorage.getItem("clientId"); // Get the client's ID
+    if (!clientId) {
+      alert("Client ID not found. Please log in again.");
+      return;
+    }
+
+    const completeData = {
+      ...itineraryData,
+      client: { id: clientId },
+      activities,
+    };
+
     if (tempItinerary) {
-      onUpdateItinerary({ ...completeData, id: tempItinerary.id });
+      onUpdateItinerary({ id: tempItinerary.id, ...completeData });
     } else {
+      console.log("printing all the data to debug");
+      console.log(completeData);
       onAddItinerary(completeData);
     }
     onCancel();

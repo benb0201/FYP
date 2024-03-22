@@ -58,6 +58,21 @@
   .aboutSection li {
     margin-bottom: 0.5rem; /* Space between list items */
   }
+
+  .documentationHeader {
+    display: inline-block; /* Allows the header to be next to other inline or inline-block elements */
+    margin-right: 10px; /* Adjusts space between the header and the link */
+  }
+  
+  .docLink {
+    display: inline-block; /* Allows the link to be in line with the header */
+    color: #467091; /* Color of the link */
+  }
+  
+  .docLink:visited {
+    color: #467091; /* Keeps the link the same color even after visited */
+  }
+  
   
     /* Responsive design adjustments */
     @media screen and (max-width: 768px) {

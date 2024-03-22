@@ -9,7 +9,6 @@ const About = () => {
         <section className={styles.aboutSection}>
           <h3>Purpose & Motivation</h3>
           <p>
-            Inspired by a previously proposed Weather Forecast application,
             TravelPal aims to provide a platform for users to plan their
             travels, integrating functionalities to create and manage
             itineraries.
@@ -19,9 +18,9 @@ const About = () => {
             road to create an all-in-one app that could handle everything. It
             aimed to provide users with the tools to plan trips, create dynamic
             itineraries, customize routes with real-time information, access
-            destination-specific weather forecasts, etc, etc, etc. But I quickly
-            realized that this "jack of all trades" approach might make the app
-            less efficient and overwhelming for users.
+            destination-specific weather forecasts, etc, etc. But experience
+            from many users tells us that this "jack of all trades" approach can
+            make the app less efficient and overwhelming for users.
           </p>
           <p>
             This realization sparked a change in direction. TravelPal is now
@@ -40,6 +39,30 @@ const About = () => {
         <section className={styles.aboutSection}>
           <h3>The Team</h3>
           <p>Benedict Obilom ...</p>
+        </section>
+        <section className={styles.aboutSection}>
+          <h3 className={styles.documentationHeader}>
+            Want to read up on the Code Documentation?:
+          </h3>
+          <a
+            href="https://benb0201.github.io/travelpal-code-documentation/"
+            target="_blank"
+            rel="noopener noreferrer" // for security reasons
+            className={styles.docLink}
+          >
+            Link to the Backend Code Documentation webpage
+          </a>
+        </section>
+        <section className={styles.aboutSection}>
+          <h3 className={styles.documentationHeader}>Leave some Feedback:</h3>
+          <a
+            href="https://forms.gle/rk3NfUj6U5v1EHy5A"
+            target="_blank"
+            rel="noopener noreferrer" // for security reasons
+            className={styles.docLink}
+          >
+            Link to TravelPal Survey :)
+          </a>
         </section>
       </div>
     </div>

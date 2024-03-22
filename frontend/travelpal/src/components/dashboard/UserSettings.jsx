@@ -57,6 +57,30 @@ const UserSettings = () => {
           </button>
         </form>
       </div>
+      <section className={styles.aboutSection}>
+        <h3 className={styles.documentationHeader}>
+          Want to read up on the Code Documentation?:
+        </h3>
+        <a
+          href="https://benb0201.github.io/travelpal-code-documentation/"
+          target="_blank"
+          rel="noopener noreferrer" // for security reasons
+          className={styles.docLink}
+        >
+          Link to the Backend Code Documentation webpage
+        </a>
+      </section>
+      <section className={styles.aboutSection}>
+        <h3 className={styles.documentationHeader}>Leave some Feedback:</h3>
+        <a
+          href="https://forms.gle/rk3NfUj6U5v1EHy5A"
+          target="_blank"
+          rel="noopener noreferrer" // for security reasons
+          className={styles.docLink}
+        >
+          Link to TravelPal Survey :)
+        </a>
+      </section>
     </div>
   );
 };

@@ -102,3 +102,41 @@ input:checked + .slider {
 .btnSave:hover {
   background-color: #517b9b;
 }
+
+.aboutSection {
+  margin: 0 2rem;
+  padding: 1rem;
+}
+
+.aboutSection h3 {
+  margin-bottom: 1rem;
+  color: #467091; /* Utilize the main blue color for subsection headings */
+}
+
+.aboutSection p, .aboutSection ul {
+  text-align: justify; /* Improve readability of the text */
+  margin-bottom: 1rem;
+}
+
+.aboutSection ul {
+  list-style-type: circle; /* Style for list items */
+  margin-left: 2rem; /* Indent list items */
+}
+
+.aboutSection li {
+  margin-bottom: 0.5rem; /* Space between list items */
+}
+
+.documentationHeader {
+  display: inline-block; /* Allows the header to be next to other inline or inline-block elements */
+  margin-right: 10px; /* Adjusts space between the header and the link */
+}
+
+.docLink {
+  display: inline-block; /* Allows the link to be in line with the header */
+  color: #467091; /* Color of the link */
+}
+
+.docLink:visited {
+  color: #467091; /* Keeps the link the same color even after visited */
+}

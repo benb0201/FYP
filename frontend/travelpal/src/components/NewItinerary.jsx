@@ -65,7 +65,7 @@ const NewItinerary = ({
 
   const submitHandler = (e) => {
     e.preventDefault();
-    const clientId = localStorage.getItem("clientId"); // Get the client's ID
+    const clientId = localStorage.getItem("clientId");
     if (!clientId) {
       alert("Client ID not found. Please log in again.");
       return;

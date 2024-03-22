@@ -11,20 +11,42 @@
     --cloudWhite: #f0f4f7; /* A soft white for background elements, akin to cloud colors */
   }
 
-.header {
+  .header {
     width: auto;    
     margin: 5rem 5rem 2rem;
     padding: 1rem;
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-direction: row; /* Change the direction to row */
+    align-items: center; /* Align items vertically in the center */
+    justify-content: space-between; /* Spread the title and button apart */
     border-bottom: 2px solid var(--mainBlue);
   }
-
-  @media screen and (max-width: 830px){
-    .header{
+  
+  .sample-itinerary-btn {
+    padding: 8px 16px;
+    margin-top: 0; /* Adjust margin-top since it's now in a row with the header */
+    background-color: var(--mainBlue);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .sample-itinerary-btn:hover {
+    background-color: #1d4b6e; /* Darker shade on hover */
+  }
+  
+  @media screen and (max-width: 800px) {
+    .header {
+      flex-direction: column; /* Stack the title and button vertically on smaller screens */
       margin: 5rem 5rem 1.5rem;
       padding: 0.5rem;
     }
+  
+    .sample-itinerary-btn {
+      margin-top: 20px; /* Add back the margin-top for visual separation */
+    }
   }
+  
   

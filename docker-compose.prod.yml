@@ -11,9 +11,13 @@ services:
       CROSS_ORIGIN: "https://fyp.cs.nuim.ie"
     ports:
       - "127.0.0.1:${CI_PORT}:8080"
+    restart:
+      always
 
   postgresdb:
     environment:
       POSTGRES_DB: ${CI_DATABASE}
       POSTGRES_USER: ${CI_USERNAME}
       POSTGRES_PASSWORD: ${CI_PASSWORD}
+    restart:
+      always

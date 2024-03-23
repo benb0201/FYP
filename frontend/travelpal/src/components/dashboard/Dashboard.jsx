@@ -31,7 +31,7 @@ const Dashboard = () => {
     const sampleItinerary = {
       name: "Family trip to the Netherlands (Sample)",
       description:
-        "Travelling with the family for the summer. A much needed break! \n (Note: sample itineraries can't be edited)",
+        "Travelling with the family for the summer. A much needed break!",
       startDate: "2025-06-15",
       endDate: "2025-06-22",
       location: "Amsterdam",

@@ -69,7 +69,7 @@ const ItineraryList = ({ isCreating, onStopCreating, onStartCreating }) => {
       window.location.reload(); //Temporarily added for update
     } catch (err) {
       console.error("Issues updating itinerary: ", err.message);
-      alert("Can't update sample \nWhy did you try :/");
+      alert("Sample itineraries can't be edited");
     }
   };
 

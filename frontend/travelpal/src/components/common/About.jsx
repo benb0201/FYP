@@ -36,10 +36,10 @@ const About = () => {
             <li>Intuitive User Experience</li>
           </ul>
         </section>
-        <section className={styles.aboutSection}>
+        {/* <section className={styles.aboutSection}>
           <h3>The Team</h3>
           <p>Benedict Obilom ...</p>
-        </section>
+        </section> */}
         <section className={styles.aboutSection}>
           <h3 className={styles.documentationHeader}>
             Want to read up on the Code Documentation?:

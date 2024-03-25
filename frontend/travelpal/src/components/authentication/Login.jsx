@@ -97,9 +97,9 @@ const Login = () => {
         ? await ClientService.authenticateClient(client)
         : await ClientService.saveClient(client);
       console.log(response);
-      alert(response.data.message);
       if (response.data.status === true) {
         localStorage.setItem("clientId", response.data.id);
+        alert(response.data.message);
         login(); // Update authentication state
         navigate("/home");
       } else {

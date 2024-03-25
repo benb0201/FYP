@@ -43,7 +43,7 @@ class ClientRepositoryTest {
 
         // Then
         assertThat(foundClient).isPresent(); // Ensure the client is found
-        assertThat(foundClient.get().getName()).isEqualTo("Friend"); // Check other properties as needed
+        assertThat(foundClient.get().getName()).isEqualTo("Friend");
     }
 
     @Test

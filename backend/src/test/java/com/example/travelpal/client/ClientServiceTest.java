@@ -61,23 +61,16 @@ class ClientServiceTest {
                 "password1",
                 LocalDate.of(2000, Month.MARCH, 16)
         );
-
         // when
         RegisterResponse registerResponse = service.registerClient(registerDTO);
-
         // then
         assertThat(registerResponse.getStatus()).isTrue();
         assertThat(registerResponse.getMessage()).isEqualTo("Registration Successful");
-
         ArgumentCaptor<Client> clientArgumentCaptor = ArgumentCaptor.forClass(Client.class);
-
         verify(repository).save(clientArgumentCaptor.capture());
-
         Client capturedClient = clientArgumentCaptor.getValue();
-
         assertThat(capturedClient.getName()).isEqualTo(registerDTO.getName());
         assertThat(capturedClient.getEmail()).isEqualTo(registerDTO.getEmail());
-        // Adjust additional assertions based on your actual Client and RegisterDTO structures
     }
 
 
@@ -92,7 +85,7 @@ class ClientServiceTest {
                 LocalDate.of(2000, Month.MARCH, 16)
         );
         given(repository.findClientByEmail(registerDTO.getEmail()))
-                .willReturn(Optional.of(new Client())); // You can create a dummy Client since the focus is on email existence check
+                .willReturn(Optional.of(new Client()));
 
         // when
         RegisterResponse registerResponse = service.registerClient(registerDTO);

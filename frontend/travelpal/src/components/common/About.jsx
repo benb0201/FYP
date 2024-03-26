@@ -45,7 +45,7 @@ const About = () => {
             Want to read up on the Code Documentation?:
           </h3>
           <a
-            href="https://benb0201.github.io/travelpal-code-documentation/"
+            href="https://benb0201.github.io/travelpal-code-documentation/classcom_1_1example_1_1travelpal_1_1models_1_1_itinerary.html"
             target="_blank"
             rel="noopener noreferrer" // for security reasons
             className={styles.docLink}

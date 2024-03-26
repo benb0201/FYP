@@ -14,17 +14,17 @@ const About = () => {
             itineraries.
           </p>
           <p>
-            Initially, TravelPal was ambitious and wanted to go down the same
-            road to create an all-in-one app that could handle everything. It
-            aimed to provide users with the tools to plan trips, create dynamic
+            Initially, TravelPal was ambitious and wanted to go down the road of
+            being an all-in-one app that could handle everything. It aimed to
+            provide users with the tools to plan trips, create dynamic
             itineraries, customize routes with real-time information, access
-            destination-specific weather forecasts, etc, etc. But experience
-            from many users tells us that this "jack of all trades" approach can
-            make the app less efficient and overwhelming for users.
+            destination-specific weather forecasts, etc. But experience from
+            many users tells us that this "jack of all trades" approach can make
+            the app less efficient and overwhelming for users.
           </p>
           <p>
             This realization sparked a change in direction. TravelPal is now
-            about giving users a straightforward, easy-to-use app that takes the
+            about giving users a straightforward, simplistic app that takes the
             stress out of travel planning. It's about doing less, but better.
           </p>
         </section>
